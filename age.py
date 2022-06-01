@@ -1,7 +1,7 @@
 #Shreya Chhaya
 #Calculate age
 #get user year and current year
-import os
+import os #library to clear screen
 os.system('cls')
 by=2007 #this is a number
 by=int(input('year you were born,'))
