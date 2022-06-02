@@ -49,9 +49,11 @@ final3=word3[number1-1]
 final4=word4[number2-1]
 print(first1+first2+word3[middle3]+word4[middle4]+final3+final4)
 
-#Question5
+#Question 5
 word5=input('your word is')
 if word5[0].islower():
     print(word5[0])
+
+
 
 
