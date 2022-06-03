@@ -37,22 +37,33 @@ print(word1[0:half1]+word2+word1[half1:len(word1)])
 
 #Question 4
 #two words- first first middle middle last last
-word3=input('your first word is')
+word3=input('your first word is') #identify words
 word4=input('your second word is')
-number1=len(word3)
+number1=len(word3) #number is the amount of letters in the word
 number2=len(word4)
-first1=word3[0]
+first1=word3[0] #findfirst letter in both words
 first2=word4[0]
-middle3=number1//2
+middle3=number1//2 #mind middle letter in both words
 middle4=number2//2
-final3=word3[number1-1]
+final3=word3[number1-1] #find last letter in both words
 final4=word4[number2-1]
-print(first1+first2+word3[middle3]+word4[middle4]+final3+final4)
+print(first1+first2+word3[middle3]+word4[middle4]+final3+final4) #print them in correct order
 
 #Question 5
 word5=input('your word is')
-if word5[0].islower():
-    print(word5[0])
+lower=[]
+upper=[]
+for characters in word5:
+    if characters.islower(): #islower: returns true if al characters in the string are lowercase
+        lower.append(characters) #move characters to end of list 
+    else: 
+        upper.append(characters) 
+
+print(lower)
+print(upper)
+rearanged=''.join(lower+upper)
+print('rearanged word is', rearanged)
+
 
 
 
