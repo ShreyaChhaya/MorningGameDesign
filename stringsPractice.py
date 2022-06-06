@@ -15,7 +15,7 @@ print(message[0:5]) #print all letters from position zero to five characters
 if message.isdigit(): #isdigit is a method you must use with a dot
     sum=message+3 #if statement is true
 else:             # if statement is false
-    print(message "I say so") #concatrenation
+    print(message('I say so')) #concatrenation
 print(message.upper())
 print(message)
 if message.isupper():
