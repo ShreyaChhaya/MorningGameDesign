@@ -29,3 +29,18 @@ for line in myFile.readlines():
     print(line)
 myFile.close()
 
+name="Shreya"
+sce=132
+scrLine=str(sce)+"\t "+name + "\t"+date.strftime("%m-%d-%Y")+ "\n"
+#Append file add lines to the file
+myFile = open("scre.txt", 'a')
+myFile.write(scrLine)
+myFile.close()
+# read the file 
+myFile = open("scre.txt", 'r')
+stuff=myFile.readlines()
+stuff.sort(reverse=True)
+myFile.close()
+for line in stuff:
+    print(line)
+

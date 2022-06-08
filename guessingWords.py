@@ -5,20 +5,24 @@
 #if guess wrong, give one letter and continue for 3 tries
 #if guessed write "you won!" and if not write "you lost"
 import random 
-import os
+import os, datetime
+date=datetime.datetime.now()
+from subprocess import HIGH_PRIORITY_CLASS
 os.system('cls')
 wordList=['elephant', 'platypus', 'spider', 'gorilla', 'armadillo', 'bobcat', 'giraffe', 'penguin', 'vulture', 'catfish', 'octopus', 'dolphin' ]
 wordList2=['apple', 'banana', 'orange', 'pineapple', 'mango', 'watermelon', 'plum', 'peach', 'strawberry', 'blueberry']
 wordList3=['red', 'orange', 'yellow', 'green', 'blue', 'purple', 'pink', 'black', 'white', 'gray']
 Game=True
-score=0
+cnt=0
+name=input('What is your name? ')
 #a function in a section the prram that we call when we need it
 while Game:
+    high=0
     gamec=True
     while gamec:
         print('Hello!')
         #add user's name here to make it more personal and for keeping score
-        print('This is "Guess The Word!')
+        print(name, 'This is "Guess The Word!')
         print('********************************************************************************************************************************************')
         print('First, I wil give you a hint about what kind of word you have to guess and the number of letters in the word. You will guess the word you think it is, and if you get it wrong, one letter in the word will be provided for you. You are allowed three guesses, getting a new letter each time.')
         print('********************************************************************************************************************************************')
@@ -28,11 +32,7 @@ while Game:
         print("Let's get started!")
         print('                                             ')
         print('                                             ')
-        def SayScore():
-            global score
-            if True:
-                score=score+1
-                print ('Your score is ', score)
+        
         try: 
             choice=int(choice)
             if choice>0 and choice<4:
@@ -43,7 +43,7 @@ while Game:
             print('sorry, that is not even a number. type 1, 2 or 3.')
 
 
-        if choice==1:
+        if choice==1:  
             word=random.choice(wordList)
             print('Your first hint is...this word is an animal. you will also recieve one letter from the word')
             if word is (wordList[0]):
@@ -71,6 +71,7 @@ while Game:
             if word is (wordList[11]):
                 print('Hint: _ _ _ _ _ _ n')
             print('                                   ')
+            cnt+=1
             guess1=input("Your first guess is ")
             if guess1==word: 
                 print('You are correct! You win!')
@@ -103,6 +104,7 @@ while Game:
                 if word is (wordList[11]):
                     print('Hint: _ _ l _ _ _ n')
                 print('                                       ')
+                cnt+=1
                 guess2=input('Your final guess is ')
                 if guess2==word:
                     print('You  correct! You win!')
@@ -134,6 +136,7 @@ while Game:
             if word2 is (wordList2[9]):
                 print('Hint: _ _ _ e _ e _ _ _')
             print(' ')
+            cnt+=1
             guess3=input('your first guess is: ')
             if guess3==word2:
                 print (" That's right!")
@@ -161,6 +164,7 @@ while Game:
                 if word2 is (wordList2[9]):
                     print('Hint: b _ _ e b e _ _ _')
                 print('  ')
+                cnt+=1
                 guess4=input('Your final guess is: ')
                 if guess4==word2:
                     print('You got it! Congrats!')
@@ -190,6 +194,8 @@ while Game:
                 print('Hint: _ h _ _ _')
             if word3 is (wordList3[9]):
                 print('Hint: g _ _ _')
+            print(' ')
+            cnt+=1
             guess5=input('Your first guess is: ')
             if guess5==word3:
                 print('You got it! Congrats!')
@@ -217,6 +223,7 @@ while Game:
                 if word3 is (wordList3[9]):
                     print('Hint: g _ _ y')
                 print('   ')
+                cnt+=1
                 guess5=input('Your final guess is: ')
                 if guess5==word3:
                     print('You got it! Congrats!')
@@ -231,9 +238,21 @@ while Game:
     else:
         print('ok, bye!')
         break
-    
-        
 
+score=2000-40*cnt
+if score >  high: 
+    high=score 
+print(name+ 'your score is '+str(score))
+
+input('press enter')
+os.system('cls')
+
+cnt==0
+print('your highest score is '+ str(score))
+myFile=open('guess_game.txt', 'a')
+scrLine=str(score)+"\t"+name + "\t" + date.strftime("%m=%d-%Y")+ "\n"
+myFile.write(scrLine)
+myFile.close
 
 
 
