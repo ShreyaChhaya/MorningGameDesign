@@ -52,7 +52,10 @@ def playerCards():
 create_DECK()
 playerCards()
 
-#dict={'A':1, '2':2, '3':3, '4':4, '5':5, '6':6, '7':7, '8':8, '9':9, '10':10, 'J':11, 'Q':12, 'K':13}
+#My turn: 
+
+#give each card a value in order to compare bigger or smaller
+cardDict={'A ♥️': 1, '2 ♥️': 2, '3 ♥️': 3, '4 ♥️': 4, '5 ♥️': 5, '6 ♥️': 6, '7 ♥️': 7, '8 ♥️': 8, '9 ♥️': 9, '10 ♥️': 10, 'J ♥️': 11, 'Q ♥️': 12, 'K ♥️': 13, 'A ♦️': 1, '2 ♦️': 2, '3 ♦️': 3, '4 ♦️': 4, '5 ♦️': 5, '6 ♦️': 6, '7 ♦️': 7, '8 ♦️': 8, '9 ♦️': 9, '10 ♦️': 10, 'J ♦️': 11, 'Q ♦️': 12, 'K ♦️': 13, 'A ♣️': 1, '2 ♣️': 2, '3 ♣️': 3, '4 ♣️': 4, '5 ♣️': 5, '6 ♣️': 6, '7 ♣️': 7, '8 ♣️': 8, '9 ♣️': 9, '10 ♣️': 10, 'J ♣️': 11, 'Q ♣️': 12, 'K ♣️': 13, 'A ♠️': 1, '2 ♠️': 2, '3 ♠️' :3, '4 ♠️': 4, '5 ♠️': 5, '6 ♠️': 6, '7 ♠️': 7, '8 ♠️': 8, '9 ♠️': 9, '10 ♠️': 10, 'J ♠️': 11, 'Q ♠️': 12, 'K ♠️': 13}
 #define player
 print()
 player1=input('Player 1, input your name: ')
@@ -70,11 +73,11 @@ def pickCard(player):
 
 
 game=0
-for game in range (50):
-    #player1Card=pickCard(player1)
-    #player2Card=pickCard(player2)
+while game <50:
+    player1Card=pickCard(player1)
+    player2Card=pickCard(player2)
     #pick winner of round - who has biggest card gets both 
-    if player1Card > player2Card: #WHY NONETYPE? 
+    if cardDict[player1Card] > cardDict[player2Card]: 
         print(player1, ' has the bigger card!')
         biggest=player1
         player1_score+=2
@@ -84,7 +87,7 @@ for game in range (50):
         print(player2, ' has the score: ', player2_score)
         print(player1, player1Deck)
         print(player2, player2Deck)
-    elif player1Card < player2Card:
+    elif cardDict(player1Card) < cardDict(player2Card):
         print(player2, ' has the biggest card!')
         biggest=player2
         player1_score-=2
@@ -95,13 +98,14 @@ for game in range (50):
         print(player1, player1Deck)
         print(player2, player2Deck)
     #if round ends in tie 
-    if player1Card==player2Card:
+    if cardDict(player1Card)==cardDict(player2Card):
         print('There is a tie. Both players will draw again')
         player1Card=pickCard(player1)
         player2Card=pickCard(player2)
-    if biggest==player1:
+
+    if len(player1Deck)>len(player2Deck):
         winner=player1
-    else:
+    if len(player2Deck)>len(player1Deck):
         winner=player2
     if len(deck)==0:
         print('Game over. ', biggest, ' wins the game')
