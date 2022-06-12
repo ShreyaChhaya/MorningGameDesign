@@ -27,13 +27,15 @@ green2=(0, 125, 125)
 yellClr=(255,255,0)
 blackClr=(0,0,0)
 white=(255,255,255)
+colors={'purple':(125,0,125), 'green2':(0, 125, 125), 'limegreen' : (153,255,51) } #dictionary for colors
+clr=colors.get('limegreen')
 hb=50 #height
 wb=50 #width
 xb=100 #varaible 
 yb=300 #variable
 square=(xb,yb,wb,hb) #create the object to draw
 #keep running create a loop 
-background=greenClr #now that background is green, no delay needed - will stay green 
+background=clr #now that background is green, no delay needed - will stay green 
 run=True
 while run:
     screen.fill(background)
