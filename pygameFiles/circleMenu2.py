@@ -12,6 +12,7 @@
 #bg=pygame.image.load('ClassStuff\CircleEatsSquare\Images\\bgSmaller.jpg')
 
 
+import sys
 import pygame, time,os,random, math
 pygame.init()#initialize the pygame package
 
@@ -31,6 +32,8 @@ screen=pygame.display.set_mode((WIDTH,HEIGHT))
 pygame.display.set_caption("My First Game")  #change the title of my window
 
 #boxes for menu
+Button_menu=pygame.Rect(274, 125, 125, 40)
+Button_instruct=pygame.Rect(274, 150, 125, 40)
 Button_settings=pygame.Rect(274, 200, 125, 40)
 Button_Game1=pygame.Rect(274, 250, 125, 40)
 Button_Game2=pygame.Rect(274, 300, 125, 40)
@@ -85,46 +88,47 @@ def mainMenu():
     yMenu=150
     
     for item in message:
-        Button_instruct=pygame.Rect(274, yMenu, 125, 40)
+        Button_menu=pygame.Rect(274, yMenu, 125, 40)
         text=MENU_FONT.render(item, 1, colors.get('blue'))
-        pygame.draw.rect(screen, colors.get('limeGreen'), Button_instruct)
+        pygame.draw.rect(screen, colors.get('limeGreen'), Button_menu)
         screen.blit(text, (280, yMenu))
         pygame.display.update()
         pygame.time.delay(50)
         yMenu += 50
-
-    
-    
-    while True:
+    MENU=True
+    while MENU:
         for event in pygame.event.get():
             if event.type==pygame.QUIT:
                 run=False
                 print("You quit")
+                pygame.display.quit()
+                MENU=False
+
             if event.type == pygame.MOUSEBUTTONDOWN:
                 mousePos = pygame.mouse.get_pos()
                 mx = mousePos[0]
                 my = mousePos[1]
-                if Button_settings.collidepoint((mx, my)):
-                    settings()
                 if Button_instruct.collidepoint((mx, my)):
                     Instructions()
-                
-
-
+                if Button_settings.collidepoint((mx, my)):
+                    settings()
+                if Button_Game1.collidepoint((mx, my)):
+                    Game=True
+                if Button_score.collidepoint((mx, my)):
+                    scoreboard()
+                if Button_exit.collidepoint((mx, my)):
+                    exit()
+    
 def Instructions():
     #rendering text objects
     Title = TITLE_FONT.render("Instructions", 1, colors.get("blue"))
-    text1 = MENU_FONT.render("Yes", 1, colors.get("blue"))
-    text2 = MENU_FONT.render("No", 1, colors.get("blue"))
 
     #fills screen with white
     screen.fill(colors.get("white"))
 
     #creating button options
-    Button_1 = pygame.Rect(200, 400, 100, 50)
-    Button_2 = pygame.Rect(400, 400, 100, 50)
+    Button_1 = pygame.Rect(25, 350, 200, 50)
     pygame.draw.rect(screen, colors.get("limeGreen"), Button_1)
-    pygame.draw.rect(screen, colors.get("limeGreen"), Button_2)
 
     #Instructions
     myFile = open("PygameFiles\instructions.txt", "r")
@@ -144,14 +148,17 @@ def Instructions():
     #renderig fonts to the screen
     xd = WIDTH//2 - (Title.get_width()//2)
     screen.blit(Title, (xd, 50))
-    screen.blit(text1, (225, 410))
-    screen.blit(text2, (425, 410))
+
+
+
 
     pygame.display.update()
-    while True:
+    Instructions = True
+    while Instructions:
         for event in pygame.event.get():
             if event.type==pygame.QUIT:
-                run=False
+                Instructions=False
+                pygame.display.quit()
                 print("You quit")
             if event.type == pygame.MOUSEBUTTONDOWN:
                 mousePos = pygame.mouse.get_pos()
@@ -159,17 +166,88 @@ def Instructions():
                 my = mousePos[1]
                 if Button_1.collidepoint((mx, my)):
                     mainMenu() 
-                if Button_2.collidepoint((mx, my)):
-                    return False
+
 
 def settings():
     title=TITLE_FONT.render('Settings', 1, colors.get('blue'))
+    text=MENU_FONT.render('Return to Menu', 1, colors.get('blue'))
+
     screen.fill(colors.get('white'))
 
+    Button_3 = pygame.Rect(25, 350, 200, 50)
+    pygame.draw.rect(screen, colors.get("limeGreen"), Button_3)
 
-print("After Menu")
+    screen.blit(title, (275,50))
+    screen.blit(text, (30,355))
+    pygame.display.update()
+
+    while True:
+        for event in pygame.event.get():
+            if event.type==pygame.QUIT:
+                run=False
+                pygame.display.quit()
+                print("You quit")
+            if event.type==pygame.MOUSEBUTTONDOWN:
+                mousePos=pygame.mouse.get_pos()
+                mx=mousePos[0]
+                my=mousePos[1]
+                if Button_3.collidepoint((mx, my)):
+                    mainMenu()
+
+
+def scoreboard():
+    title=TITLE_FONT.render('Scoreboad', 1, colors.get('blue'))
+    text3 = MENU_FONT.render("Return to Menu", 1, colors.get("blue"))
+
+
+    screen.fill(colors.get('white'))
+    Button_3 = pygame.Rect(25, 350, 200, 50)
+    pygame.draw.rect(screen, colors.get("limeGreen"), Button_3)
+    
+
+    screen.blit(title, (200,200))
+    screen.blit(text3, (30, 355))
+    pygame.display.update()
+
+    scoreboard=True
+    while scoreboard:
+        for event in pygame.event.get():
+            if event.type==pygame.QUIT:
+                run=False
+                pygame.display.quit()
+                print("You quit")
+            if event.type==pygame.MOUSEBUTTONDOWN:
+                mousePos=pygame.mouse.get_pos()
+                mx=mousePos[0]
+                my=mousePos[1]
+                if Button_3.collidepoint((mx, my)):
+                    mainMenu()
+
+
+def exit():
+    title=TITLE_FONT.render('GAME OVER', 1, colors.get('blue'))
+    text4=MENU_FONT.render('Click to Exit', 1, colors.get('blue'))
+    screen.fill(colors.get('white'))
+    Button_4=pygame.Rect(25, 350, 200, 50)
+    pygame.draw.rect(screen, colors.get('limeGreen'), Button_4)
+    screen.blit(title, (300,50))
+    screen.blit(text4, (30, 355))
+    exit=True
+    while exit:
+        for event in pygame.event.get():
+            if event.type==pygame.MOUSEBUTTONDOWN:
+                mousePos=pygame.mouse.get_pos()
+                mx=mousePos[0]
+                my=mousePos[1]
+                if Button_4.collidepoint((mx, my)):
+                    pygame.display.quit()
+                    exit=False
+                    print('You Quit.')
+
+
+
 mainMenu()
-run = Instructions()
+Instructions()
 
 while run:
     # screen.fill(backgrnd)
@@ -219,7 +297,7 @@ while run:
         xig = cx-(ibox/2)
         yig = cy-(ibox/2)
         insSquare=pygame.Rect(xig,yig,ibox,ibox)
-    
+        
     if square.colliderect(mountainSquare):
         square.x=10
         square.y=10
@@ -234,4 +312,8 @@ while run:
 
     #pygame.draw.rect(screen, colors.get('white'), mountainSquare,)
     pygame.display.update()
+
+
     
+
+        
