@@ -11,8 +11,7 @@
 #picture = pygame. transform. scale(picture, (1280, 720))
 #bg=pygame.image.load('ClassStuff\CircleEatsSquare\Images\\bgSmaller.jpg')
 
-import re
-from tkinter import Button
+
 import pygame, time,os,random, math
 pygame.init()#initialize the pygame package
 
@@ -31,6 +30,12 @@ message=['Instructions', 'Settings', 'Game 1', 'Game 2', 'Scoreboard', 'Exit']
 screen=pygame.display.set_mode((WIDTH,HEIGHT)) 
 pygame.display.set_caption("My First Game")  #change the title of my window
 
+#boxes for menu
+Button_settings=pygame.Rect(274, 200, 125, 40)
+Button_Game1=pygame.Rect(274, 250, 125, 40)
+Button_Game2=pygame.Rect(274, 300, 125, 40)
+Button_score=pygame.Rect(274, 350, 125, 40)
+Button_exit=pygame.Rect(274, 400, 125, 40)
 #images
 bg=pygame.image.load('PygameFiles\images\\bgSmaller.jpg')
 char = pygame.image.load('PygameFiles\images\PixelArtTutorial.png')
@@ -71,27 +76,39 @@ backgrnd=colors.get("limeGreen")
 run = True
 Game = False
 
-def menu():
-    Title = TITLE_FONT.render("Circle eats Square", 1, colors.get("blue"))
+def mainMenu():
+    pygame.draw.rect(screen, colors.get('limeGreen'), Button_settings)
+    Title = TITLE_FONT.render("Circle eats Square Menu", 1, colors.get("blue"))
     screen.fill(colors.get('white'))
     xd = WIDTH//2 - (Title.get_width()//2)
     screen.blit(Title, (xd, 50))
-    yMenu=155
+    yMenu=150
     
     for item in message:
-        Button_instruct=pygame.Rect(200, yMenu, 40, 40)
+        Button_instruct=pygame.Rect(274, yMenu, 125, 40)
         text=MENU_FONT.render(item, 1, colors.get('blue'))
         pygame.draw.rect(screen, colors.get('limeGreen'), Button_instruct)
-        screen.blit(text, (40, yMenu))
+        screen.blit(text, (280, yMenu))
         pygame.display.update()
         pygame.time.delay(50)
         yMenu += 50
 
-
-
-
-
-
+    
+    
+    while True:
+        for event in pygame.event.get():
+            if event.type==pygame.QUIT:
+                run=False
+                print("You quit")
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                mousePos = pygame.mouse.get_pos()
+                mx = mousePos[0]
+                my = mousePos[1]
+                if Button_settings.collidepoint((mx, my)):
+                    settings()
+                if Button_instruct.collidepoint((mx, my)):
+                    Instructions()
+                
 
 
 def Instructions():
@@ -141,10 +158,17 @@ def Instructions():
                 mx = mousePos[0]
                 my = mousePos[1]
                 if Button_1.collidepoint((mx, my)):
-                    return True
+                    mainMenu() 
                 if Button_2.collidepoint((mx, my)):
                     return False
-menu()
+
+def settings():
+    title=TITLE_FONT.render('Settings', 1, colors.get('blue'))
+    screen.fill(colors.get('white'))
+
+
+print("After Menu")
+mainMenu()
 run = Instructions()
 
 while run:
