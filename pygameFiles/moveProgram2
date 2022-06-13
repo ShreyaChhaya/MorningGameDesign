@@ -100,5 +100,5 @@ while run:
     screen.blit(char, (100,100)) #put character on screen
     #circle(surface, color, center, radius)
     pygame.draw.circle(screen, circleClr, (cx,cy), rad)
-    pygame.draw.rect(screen, squareClr, insSquare)
+    pygame.draw.rect(screen, circleClr, insSquare)
     pygame.display.update()
