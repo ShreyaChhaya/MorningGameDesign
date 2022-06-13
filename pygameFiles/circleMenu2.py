@@ -65,6 +65,7 @@ square=pygame.Rect(xb,yb,wb,hb)# create the object to draw
 insSquare=pygame.Rect(xig,yig,ibox,ibox)
 squareClr=colors.get("pink")
 #keep running create a lp
+mountainSquare=pygame.Rect(250,320,180,250)
 circleClr=colors.get("blue")
 backgrnd=colors.get("limeGreen")
 run = True
@@ -76,14 +77,23 @@ def menu():
     xd = WIDTH//2 - (Title.get_width()//2)
     screen.blit(Title, (xd, 50))
     yMenu=155
+    
     for item in message:
+        Button_instruct=pygame.Rect(200, yMenu, 40, 40)
         text=MENU_FONT.render(item, 1, colors.get('blue'))
+        pygame.draw.rect(screen, colors.get('limeGreen'), Button_instruct)
         screen.blit(text, (40, yMenu))
-
         pygame.display.update()
         pygame.time.delay(50)
         yMenu += 50
-    pygame.time.delay(5000)
+
+
+
+
+
+
+
+
 def Instructions():
     #rendering text objects
     Title = TITLE_FONT.render("Instructions", 1, colors.get("blue"))
@@ -125,7 +135,7 @@ def Instructions():
         for event in pygame.event.get():
             if event.type==pygame.QUIT:
                 run=False
-                print("Y quit")
+                print("You quit")
             if event.type == pygame.MOUSEBUTTONDOWN:
                 mousePos = pygame.mouse.get_pos()
                 mx = mousePos[0]
@@ -185,10 +195,19 @@ while run:
         xig = cx-(ibox/2)
         yig = cy-(ibox/2)
         insSquare=pygame.Rect(xig,yig,ibox,ibox)
+    
+    if square.colliderect(mountainSquare):
+        square.x=10
+        square.y=10
+        charx=10
+        chary=10
     #rect(surface, color, rect) -> Rect
     pygame.draw.rect(screen, squareClr,square)
     screen.blit(char, (charx, chary))
     #circle(surface, color, center, radius)
     pygame.draw.circle(screen, circleClr, (cx,cy), rad)
     pygame.draw.rect(screen, squareClr, insSquare)
+
+    #pygame.draw.rect(screen, colors.get('white'), mountainSquare,)
     pygame.display.update()
+    
