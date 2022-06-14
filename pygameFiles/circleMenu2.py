@@ -1,19 +1,21 @@
-#Maria Suarez
-#6/9/2022
-#We are learning pygame basic functins, 
-# creating screens, clrs, shape ,move 
-# move  the square
-# K_UP                  up arrow
-# K_DOWN                down arrow
-# K_RIGHT               right arrow
-# K_LEFT                left arrow
-#picture = pygame. image. load(filename)
-#picture = pygame. transform. scale(picture, (1280, 720))
-#bg=pygame.image.load('ClassStuff\CircleEatsSquare\Images\\bgSmaller.jpg')
+# #Maria Suarez
+# #6/9/2022
+# #We are learning pygame basic functins, 
+# # creating screens, clrs, shape ,move 
+# # move  the square
+# # K_UP                  up arrow
+# # K_DOWN                down arrow
+# # K_RIGHT               right arrow
+# # K_LEFT                left arrow
+# #picture = pygame. image. load(filename)
+# #picture = pygame. transform. scale(picture, (1280, 720))
+# #bg=pygame.image.load('ClassStuff\CircleEatsSquare\Images\\bgSmaller.jpg')
 
 
+from subprocess import HIGH_PRIORITY_CLASS
 import sys
-import pygame, time,os,random, math
+import pygame, time,os,random, math, datetime
+date=datetime.datetime.now()
 pygame.init()#initialize the pygame package
 
 # print(pygame.font.get_fonts())
@@ -52,6 +54,7 @@ char = pygame.transform.scale(char, (50, 50))
 hb=50
 wb=50
 xb=100
+rad=25
 yb=300
 
 charx = xb
@@ -59,7 +62,6 @@ chary = yb
 
 cx=350
 cy=350
-rad=25
 speed=2
 ibox = rad*math.sqrt(2)
 xig = cx-(ibox/2)
@@ -113,11 +115,13 @@ def mainMenu():
                 if Button_settings.collidepoint((mx, my)):
                     settings()
                 if Button_Game1.collidepoint((mx, my)):
-                    run=True
+                    GameOne()
                 if Button_score.collidepoint((mx, my)):
                     scoreboard()
                 if Button_exit.collidepoint((mx, my)):
                     exit()
+                if Button_Game2.collidepoint((mx, my)):
+                    GameOne()
     
 def Instructions():
     #rendering text objects
@@ -193,18 +197,28 @@ def settings():
 
 
 def scoreboard():
-    title=TITLE_FONT.render('Scoreboad', 1, colors.get('blue'))
+    high=0
+    title=TITLE_FONT.render('Scoreboard', 1, colors.get('blue'))
     text3 = MENU_FONT.render("Return to Menu", 1, colors.get("blue"))
-
 
     screen.fill(colors.get('white'))
     Button_3 = pygame.Rect(25, 350, 200, 50)
     pygame.draw.rect(screen, colors.get("limeGreen"), Button_3)
     
-
-    screen.blit(title, (200,200))
+    screen.blit(title, (250,50))
     screen.blit(text3, (30, 355))
     pygame.display.update()
+    
+    print(score)
+    File=open('pygameFiles\scoreboard.txt', 'a')
+    File.write(str(score))
+    File.close()
+
+    with open('pygameFiles\scoreboard') as f:
+        if score>high:
+            high=score
+    File.write(str(score)) + '\t' + '\t'+ date.strftime('%m/%d/%Y')
+    File.close()
 
     scoreboard=True
     while scoreboard:
@@ -222,94 +236,129 @@ def scoreboard():
 
 def exit():
     title=TITLE_FONT.render('Bye-Bye', 1, colors.get('blue'))
-    #text4=MENU_FONT.render('Click to Exit', 1, colors.get('blue'))
     screen.fill(colors.get('white'))
-    #Button_4=pygame.Rect(25, 350, 200, 50)
-    #pygame.draw.rect(screen, colors.get('limeGreen'), Button_4)
-    screen.blit(title, (300,50))
-    #screen.blit(text4, (30, 355))
-    #exit=True
-    #while exit:
-        #for event in pygame.event.get():
-            #if event.type==pygame.QUIT:
-                #exit=False
-                #pygame.display.quit()
-                #print('You quit')
-            #if event.type==pygame.MOUSEBUTTONDOWN:
-                #mousePos=pygame.mouse.get_pos()
-                #mx=mousePos[0]
-                #my=mousePos[1]
-                
+
+    screen.blit(title, (275, 100))
+    pygame.display.update()
+
+def GameOne():
+    title=TITLE_FONT.render('Game Level 1', 1, colors.get('blue'))
+    text=MENU_FONT.render('Return to Menu', 1, colors.get('blue'))
+    text2=MENU_FONT.render('Play the Game', 1, colors.get('blue'))
+
+    screen.fill(colors.get('white'))
+
+    Button_3 = pygame.Rect(25, 350, 175, 50)
+    pygame.draw.rect(screen, colors.get("limeGreen"), Button_3)
+    Button_4=pygame.Rect(325, 350, 175, 50)
+    pygame.draw.rect(screen, colors.get('limeGreen'), Button_4)
+
+    screen.blit(title, (275,50))
+    screen.blit(text, (30,355))
+    screen.blit(text2, (330, 355))
+    pygame.display.update()
+
+    while True:
+        for event in pygame.event.get():
+            if event.type==pygame.QUIT:
+                run=False
+                pygame.display.quit()
+                print("You quit")
+            if event.type==pygame.MOUSEBUTTONDOWN:
+                mousePos=pygame.mouse.get_pos()
+                mx=mousePos[0]
+                my=mousePos[1]
+                if Button_3.collidepoint((mx, my)):
+                    mainMenu()
+                if Button_4.collidepoint((mx, my)):
+                    return Game
 
 mainMenu()
 Instructions()
 
-while run:
-    # screen.fill(backgrnd)
+score=0
+Game=True
+while Game:
+    pygame.draw.rect(screen, colors.get("white"), mountainSquare)
+    screen.blit(bg, (0,0))
     for event in pygame.event.get():
-        if event.type==pygame.QUIT:
-            run=False
-            print("Y quit")
+        if event.type == pygame.QUIT:
+            run = False
+            print("you quit")
         if event.type == pygame.MOUSEBUTTONDOWN:
             mousePos = pygame.mouse.get_pos()
-            mx = mousePos[0]
-            my = mousePos[1]
-    screen.blit(bg, (0,0))
-    keys= pygame.key.get_pressed() #this is a list
-    #mve square
-    if keys[pygame.K_RIGHT] and square.x < WIDTH -(wb):
+            # print(mousePos)
+    keys = pygame.key.get_pressed() #allow us to see what key was pressed
+
+    #square movement
+    if keys[pygame.K_d] and square.x < WIDTH-wb:
         square.x += speed
         charx += speed
-    if keys[pygame.K_LEFT] and  square.x > speed:
+    if keys[pygame.K_a] and square.x > 0:
         square.x -= speed
         charx -= speed
-    if keys[pygame.K_UP] and square.y >speed:   #means clser t 0
-        square.y -= speed
-        chary -= speed
-    if keys[pygame.K_DOWN] and square.y <HEIGHT -hb:  #means clser t max value HEIGHT
+    if keys[pygame.K_s] and square.y < HEIGHT-hb:
         square.y += speed
         chary += speed
-        #mve Circle
-    if keys[pygame.K_d] and cx < WIDTH -(rad):
+    if keys[pygame.K_w] and square.y > 0:
+        square.y -= speed
+        chary -= speed
+
+    #circle and inscribed square movement
+    if keys[pygame.K_RIGHT] and cx < WIDTH-rad:
         cx += speed
         insSquare.x += speed
-    if keys[pygame.K_a] and  cx > (speed+rad):
+    if keys[pygame.K_LEFT] and cx > 0+rad:
         cx -= speed
         insSquare.x -= speed
-    if keys[pygame.K_w] and cy >(speed+rad):   #means clser t 0
-        cy -= speed
-        insSquare.y -= speed
-    if keys[pygame.K_s] and cy <HEIGHT -(rad):  #means clser t max value HEIGHT
+    if keys[pygame.K_DOWN] and cy < HEIGHT-rad:
         cy += speed
         insSquare.y += speed
-
-    if square.colliderect(insSquare):
+    if keys[pygame.K_UP] and cy > 0+rad:
+        cy -= speed
+        insSquare.y -= speed
+    
+    #circle square collide
+    if square.colliderect(insSquare): 
         print("BOOM")
-        rad+=1
-        cx=random.randint(rad, WIDTH-rad)
-        cy=random.randint(rad, HEIGHT-rad)
+        cx = random.randint(rad, WIDTH-rad)
+        cy = random.randint(rad, HEIGHT-rad)
+        rad += 5
         ibox = rad*math.sqrt(2)
         xig = cx-(ibox/2)
         yig = cy-(ibox/2)
         insSquare=pygame.Rect(xig,yig,ibox,ibox)
-        
-    #if square.colliderect(mountainSquare):
-        #square.x=10
-        #square.y=10
-        #charx=10
-        #chary=10
-    #rect(surface, color, rect) -> Rect
-    pygame.draw.rect(screen, squareClr,square)
+    
+    #mountain collide square
+    if square.colliderect(mountainSquare):
+        square.x = 10
+        square.y = 10
+        charx = 10
+        chary = 10
+    
+    #mountain collide circle
+    if insSquare.colliderect(mountainSquare):
+        cx = rad + 10
+        cy = rad + 10
+        ibox = rad*math.sqrt(2)
+        xig = cx-(ibox/2)
+        yig = cy-(ibox/2)
+        insSquare=pygame.Rect(xig,yig,ibox,ibox)
+
+    #rect(surface, color, object)
+    pygame.draw.rect(screen, colors.get("blue"), square)
+    pygame.draw.rect(screen, colors.get("blue"), insSquare)
+    screen.blit(char, (charx, chary))
+
     #circle(surface, color, center, radius)
-    pygame.draw.circle(screen, circleClr, (cx,cy), rad)
-    pygame.draw.rect(screen, squareClr, insSquare)
-
-    #pygame.draw.rect(screen, colors.get('white'), mountainSquare,)
+    pygame.draw.circle(screen, colors.get("red"), (cx, cy), rad)
+    
     pygame.display.update()
-
-
-
+    pygame.time.delay(5)
 
     
+exit()
 
         
+
+            
