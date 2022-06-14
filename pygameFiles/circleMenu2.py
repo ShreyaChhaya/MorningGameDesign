@@ -113,7 +113,7 @@ def mainMenu():
                 if Button_settings.collidepoint((mx, my)):
                     settings()
                 if Button_Game1.collidepoint((mx, my)):
-                    Game=True
+                    run=True
                 if Button_score.collidepoint((mx, my)):
                     scoreboard()
                 if Button_exit.collidepoint((mx, my)):
@@ -148,9 +148,6 @@ def Instructions():
     #renderig fonts to the screen
     xd = WIDTH//2 - (Title.get_width()//2)
     screen.blit(Title, (xd, 50))
-
-
-
 
     pygame.display.update()
     Instructions = True
@@ -223,28 +220,26 @@ def scoreboard():
                 if Button_3.collidepoint((mx, my)):
                     mainMenu()
 
-
 def exit():
-    title=TITLE_FONT.render('GAME OVER', 1, colors.get('blue'))
-    text4=MENU_FONT.render('Click to Exit', 1, colors.get('blue'))
+    title=TITLE_FONT.render('Bye-Bye', 1, colors.get('blue'))
+    #text4=MENU_FONT.render('Click to Exit', 1, colors.get('blue'))
     screen.fill(colors.get('white'))
-    Button_4=pygame.Rect(25, 350, 200, 50)
-    pygame.draw.rect(screen, colors.get('limeGreen'), Button_4)
+    #Button_4=pygame.Rect(25, 350, 200, 50)
+    #pygame.draw.rect(screen, colors.get('limeGreen'), Button_4)
     screen.blit(title, (300,50))
-    screen.blit(text4, (30, 355))
-    exit=True
-    while exit:
-        for event in pygame.event.get():
-            if event.type==pygame.MOUSEBUTTONDOWN:
-                mousePos=pygame.mouse.get_pos()
-                mx=mousePos[0]
-                my=mousePos[1]
-                if Button_4.collidepoint((mx, my)):
-                    pygame.display.quit()
-                    exit=False
-                    print('You Quit.')
-
-
+    #screen.blit(text4, (30, 355))
+    #exit=True
+    #while exit:
+        #for event in pygame.event.get():
+            #if event.type==pygame.QUIT:
+                #exit=False
+                #pygame.display.quit()
+                #print('You quit')
+            #if event.type==pygame.MOUSEBUTTONDOWN:
+                #mousePos=pygame.mouse.get_pos()
+                #mx=mousePos[0]
+                #my=mousePos[1]
+                
 
 mainMenu()
 Instructions()
@@ -298,20 +293,21 @@ while run:
         yig = cy-(ibox/2)
         insSquare=pygame.Rect(xig,yig,ibox,ibox)
         
-    if square.colliderect(mountainSquare):
-        square.x=10
-        square.y=10
-        charx=10
-        chary=10
+    #if square.colliderect(mountainSquare):
+        #square.x=10
+        #square.y=10
+        #charx=10
+        #chary=10
     #rect(surface, color, rect) -> Rect
     pygame.draw.rect(screen, squareClr,square)
-    screen.blit(char, (charx, chary))
     #circle(surface, color, center, radius)
     pygame.draw.circle(screen, circleClr, (cx,cy), rad)
     pygame.draw.rect(screen, squareClr, insSquare)
 
     #pygame.draw.rect(screen, colors.get('white'), mountainSquare,)
     pygame.display.update()
+
+
 
 
     
