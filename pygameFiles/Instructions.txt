@@ -1,6 +1,12 @@
 In this game, we need to use 
- the arrow keys to move the square 
-to move the circle, use W, A, S, and D 
- 
-  
-Return to menu: 
+the arrow keys to move the square 
+to move the circle, use W, A, S, and D. 
+Every time the shapes collide, you get a point 
+and the circle grows. 
+When you are playing the game click the x in 
+the corner to return to the menu
+You may check the scoreboard for your score 
+after you have completed one round
+Enjoy!
+
+
