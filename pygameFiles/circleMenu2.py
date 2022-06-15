@@ -101,7 +101,7 @@ def Instructions():
     text = MENU_FONT.render('Return to Menu', 1, colors.get('blue'))
 
     #fills screen with white
-    screen.fill(colors.get("white"))
+    screen.fill(colorTheme)
 
     #creating button options
     Button_1 = pygame.Rect(WIDTH//18, HEIGHT/1.1, WIDTH//4, 40)
@@ -142,6 +142,7 @@ def Instructions():
                 if Button_1.collidepoint((mx, my)):
                     mainMenu() 
 
+colorTheme=colors.get('white')
 def settings():
     global colorTheme 
     global screen 
@@ -150,9 +151,9 @@ def settings():
     title=TITLE_FONT.render('Settings', 1, colors.get('blue'))
     text=MENU_FONT.render('Return to Menu', 1, colors.get('blue'))
 
-    screen.fill(colors.get('white'))
+    screen.fill(colorTheme)
 
-    colorTheme=MENU_FONT.render('Background Color:', 1, colors.get('blue'))
+    colorTheme=MENU_FONT.render('Change Background Color:', 1, colors.get('blue'))
     screen.blit(colorTheme, (WIDTH/18, HEIGHT/4))
     pygame.display.update()
     pygame.time.delay(50)
@@ -181,13 +182,6 @@ def settings():
     pygame.draw.rect(screen, colors.get('limeGreen'), Button_4)
     pygame.draw.rect(screen, colors.get('limeGreen'), Button_5)
 
-    #buttons for color changing 
-    # Button_6=pygame.Rect(WIDTH/21, HEIGHT/3, WIDTH//3.8, 40)
-    # Button_7=pygame.Rect(WIDTH/2.9, HEIGHT/3, WIDTH//3.5, 40)
-    # Button_8=pygame.Rect(WIDTH/1.5, HEIGHT/3, WIDTH//3.5, 40)
-    # pygame.draw.rect(screen, colors.get('pink'), Button_6)
-    # pygame.draw.rect(screen, colors.get('black'), Button_7)
-    # pygame.draw.rect(screen, colors.get('limeGreen'), Button_8)
     #buttons for sound
     Button_9=pygame.Rect(WIDTH/20, HEIGHT/1.3, WIDTH//6, 40)
     Button_10=pygame.Rect(WIDTH/3, HEIGHT/1.3, WIDTH//6, 40)
@@ -201,20 +195,13 @@ def settings():
     text6=MENU_FONT.render('DOWN 100', 1, colors.get('blue'))
     screen.blit(text5, (WIDTH/18, HEIGHT/1.8))
     screen.blit(text6, (WIDTH/4, HEIGHT/1.8))
-    # text2=MENU_FONT.render('Pink/Purple/Blue', 1, colors.get('purple'))
-    # text3=MENU_FONT.render('Yellow/Red/Black', 1, colors.get('yellow'))
-    # text4=MENU_FONT.render('Green/Blue/White', 1, colors.get('blue'))
-    # screen.blit(text2, (WIDTH/20, HEIGHT/3))
-    # screen.blit(text3, (WIDTH/2.8, HEIGHT/3))
-    # screen.blit(text4, (WIDTH/1.5, HEIGHT/3))
+    
     text7=MENU_FONT.render('Sound On', 1, colors.get('blue'))
     text8=MENU_FONT.render('Sound Off', 1, colors.get('blue'))
     screen.blit(text7, (WIDTH/18, HEIGHT/1.3))
     screen.blit(text8, (WIDTH/3, HEIGHT/1.3))
-    text9=MENU_FONT.render('Change color scheme:', 1, colors.get('blue'))
     text10=MENU_FONT.render('Change screen size:', 1, colors.get('blue'))
     text11=MENU_FONT.render('Change sound settings:', 1, colors.get('blue'))
-    screen.blit(text9, (WIDTH/18, HEIGHT/4))
     screen.blit(text10, (WIDTH/18, HEIGHT/2.1))
     screen.blit(text11, (WIDTH/18, HEIGHT/1.5))
     pygame.display.update()
@@ -238,6 +225,14 @@ def settings():
                     colorTheme='yellow'
                 if Button_Black.collidepoint((mx, my)):
                     colorTheme='black'
+                if Button_4.collidepoint((mx,my)):
+                    WIDTH+=100
+                    HEIGHT+=100
+                    screen=pygame.display.set_mode(WIDTH, HEIGHT)
+                if Button_5.collidepoint((mx,my)):
+                    WIDTH-=100
+                    HEIGHT-=100
+                    screen=pygame.display.set_mode(WIDTH, HEIGHT)
 
 
 
