@@ -142,7 +142,7 @@ def gameEnd():
             if Button_yes.collidepoint((mx, my)):
                 count=0
                 grid()
-                draw_Markers()
+                zero_Array()
                 Game = True
             if Button_no.collidepoint((mx, my)):
                 text=MENU_FONT.render('Bye!', 1, (cirClr))
