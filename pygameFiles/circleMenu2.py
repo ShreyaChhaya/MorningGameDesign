@@ -16,6 +16,8 @@ from subprocess import HIGH_PRIORITY_CLASS
 import sys
 import pygame, time,os,random, math, datetime
 date=datetime.datetime.now()
+from pygame import mixer
+from pygame.locals import*
 pygame.init()#initialize the pygame package
 
 os.system('cls')
@@ -30,9 +32,10 @@ message=['Instructions', 'Settings', 'Game 1', 'Game 2', 'Scoreboard', 'Exit']
 #create dispay wind with any name y like
 screen=pygame.display.set_mode((WIDTH,HEIGHT)) 
 pygame.display.set_caption("My First Game")  #change the title of my window
-backgroundWhite=colors.get('white')
-backgroundYellow=colors.get('yellow')
-backgroundBlack=colors.get('black')
+
+#background music
+mixer.music.load('background (1).wav')
+mixer.music.play(-1)
 
 menuColor = (random.randint(0,255), random.randint(0,255), random.randint(0,255))
 #boxes for menu
@@ -163,23 +166,16 @@ def settings():
     pygame.time.delay(50)
     
     
-
+#changing color random
     Button_color = pygame.Rect(WIDTH/21, HEIGHT/3, WIDTH//3.8, 40)
-    # Button_Yellow = pygame.Rect(WIDTH/2.9, HEIGHT/3, WIDTH//3.8, 40)
-    # Button_Black = pygame.Rect(WIDTH/1.5, HEIGHT/3, WIDTH//3.8, 40)
     pygame.draw.rect(screen, colors.get('limeGreen'), Button_color)
-    # pygame.draw.rect(screen, colors.get('limeGreen'), Button_Yellow)
-    # pygame.draw.rect(screen, colors.get('limeGreen'), Button_Black)
 
     textcolor = MENU_FONT.render('Random', 1, colors.get('blue'))
-    # textYellow = MENU_FONT.render('yellow', 1, colors.get('blue'))
-    # textBlack = MENU_FONT.render('black', 1, colors.get('blue'))
     screen.blit(textcolor, (WIDTH/20, HEIGHT/3))
-    # screen.blit(textYellow, (WIDTH/2.8, HEIGHT/3))
-    # screen.blit(textBlack, (WIDTH/1.5, HEIGHT/3))
-
+#back to menu
     Button_3 = pygame.Rect(WIDTH//18, HEIGHT/1.1, WIDTH//4, 40)
     pygame.draw.rect(screen, colors.get("limeGreen"), Button_3)
+
     #buttons for size changing 
     Button_4=pygame.Rect(WIDTH/20, HEIGHT/1.8, WIDTH//7, 40)
     Button_5=pygame.Rect(WIDTH/4, HEIGHT/1.8, WIDTH//5, 40)
@@ -187,10 +183,10 @@ def settings():
     pygame.draw.rect(screen, colors.get('limeGreen'), Button_5)
 
     #buttons for sound
-    Button_9=pygame.Rect(WIDTH/20, HEIGHT/1.3, WIDTH//6, 40)
-    Button_10=pygame.Rect(WIDTH/3, HEIGHT/1.3, WIDTH//6, 40)
-    pygame.draw.rect(screen, colors.get('limeGreen'), Button_9)
-    pygame.draw.rect(screen, colors.get('limeGreen'), Button_10)
+    Button_on=pygame.Rect(WIDTH/20, HEIGHT/1.3, WIDTH//6, 40)
+    Button_off=pygame.Rect(WIDTH/3, HEIGHT/1.3, WIDTH//6, 40)
+    pygame.draw.rect(screen, colors.get('limeGreen'), Button_on)
+    pygame.draw.rect(screen, colors.get('limeGreen'), Button_off)
 
     #text for buttons/screen
     screen.blit(title, (WIDTH/2.5,50))
@@ -221,13 +217,23 @@ def settings():
                 mousePos=pygame.mouse.get_pos()
                 mx=mousePos[0]
                 my=mousePos[1]
+                #button for menu
                 if Button_3.collidepoint((mx, my)):
                     mainMenu()
+                    #button for color
                 if Button_color.collidepoint((mx, my)):
                     menuColor = (random.randint(0,255), random.randint(0,255), random.randint(0,255))
                     print("change color")
                     pygame.display.update()
                     settings()
+                    #buttons for sound
+                if Button_on.collidepoint((mx,my)):
+                    mixer.music.play(-1)
+                    print("music on")
+                if Button_off.collidepoint((mx,my)):
+                    mixer.music.stop()
+                    print("music off")
+                    #buttons for sizing
                 if Button_4.collidepoint((mx,my)) and WIDTH <1100 and HEIGHT<1100:
                     WIDTH +=100
                     HEIGHT +=100

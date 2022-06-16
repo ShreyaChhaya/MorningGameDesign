@@ -26,6 +26,8 @@ pygame.display.set_caption('Tic Tac Toe')
 player=1   #change player
 gameOver=False #check if game is over
 markers=[] #control cells
+scoreOne=0
+scoreTwo=0
 winner = 0 #this means tie - save winner here either 1 or -1
 lineWidth=10 #line thickness
 Game=True #control game
@@ -64,14 +66,26 @@ def draw_Markers():
 
 def x_winner():
     screen.fill(backgrnd)
+    sx=str(scoreOne)
+    so=str(scoreTwo)
     text=MENU_FONT.render('Player X won!', 1, (cirClr))
+    textScore=MENU_FONT.render('Player X score = '+sx, 1, (cirClr))
+    text2Score=MENU_FONT.render('Player O score = '+so, 1, (cirClr))
+    screen.blit(textScore, (WIDTH/4, HEIGHT/1.5))
+    screen.blit(text2Score, (WIDTH/1.75, HEIGHT/1.5))
     screen.blit(text, (WIDTH/2.5, HEIGHT/2.5))
     pygame.display.update()
     pygame.time.delay(2000)
     gameEnd()
 def o_winner():
     screen.fill(backgrnd)
+    sx=str(scoreOne)
+    so=str(scoreTwo)
     texto=MENU_FONT.render('Player O won!', 1, (cirClr))
+    textScore=MENU_FONT.render('Player X score = '+sx, 1, (cirClr))
+    text2Score=MENU_FONT.render('Player O score = '+so, 1, (cirClr))
+    screen.blit(textScore, (WIDTH/4, HEIGHT/1.5))
+    screen.blit(text2Score, (WIDTH/1.75, HEIGHT/1.5))
     screen.blit(texto, (WIDTH/2.5, HEIGHT/2.5))
     pygame.display.update()
     pygame.time.delay(2000)
@@ -84,35 +98,41 @@ def tieGame():
     pygame.time.delay(2000)
     gameEnd()
 def checkWinner():
-    global gameOver, winner
+    global gameOver, winner, scoreOne, scoreTwo
     x_position=0
     for x in markers:
         if sum(x)==3:
             winner =1
+            scoreOne+=1
             gameOver=True
             x_winner()
         if sum(x)==-3:
             winner = -1
+            scoreTwo+=1
             gameOver = True
             o_winner()
         #check rows
         if markers[0][x_position]+markers[1][x_position]+markers[2][x_position] ==3:
             winner = 1
+            scoreOne+=1
             gameOver=True
             x_winner()
         
         if markers[0][x_position]+markers[1][x_position]+markers[2][x_position] ==-3:
             winner = -1
+            scoreTwo+=1
             gameOver=True
             o_winner()
         x_position +=1
     #check diagonals
     if markers[0][0]+markers[1][1]+markers[2][2] == 3 or markers[2][0]+markers[1][1]+markers[0][2] ==3:
         winner=1
+        scoreOne+=1
         gameOver=True
         x_winner()
     if markers[0][0]+markers[1][1]+markers[2][2] == -3 or markers[2][0]+markers[1][1]+markers[0][2] == -3:
         winner=-1
+        scoreTwo+=1
         gameOver=True
         o_winner()
     #check tie
@@ -156,6 +176,7 @@ def gameEnd():
             if Button_yes.collidepoint((mx, my)):
                 Game = True
                 zero_Array()
+                pygame.display.update()
             if Button_no.collidepoint((mx, my)):
                 text=MENU_FONT.render('Bye!', 1, (cirClr))
                 screen.fill(backgrnd)
