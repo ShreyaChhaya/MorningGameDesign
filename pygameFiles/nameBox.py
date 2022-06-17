@@ -22,7 +22,6 @@ MENU_FONT = pygame.font.SysFont('comicsans', WIDTH//30)
 
 title=TITLE_FONT.render('Enter Name', 1, bxClr)
 screen.blit(title, (WIDTH/2.5, HEIGHT//7))
-pygame.time.delay(1000)
 pygame.display.update()
 
 nameBox=pygame.Rect(WIDTH//4, HEIGHT//3, WIDTH//2, HEIGHT//10)
@@ -45,12 +44,14 @@ while run:
                 sys.exit()
             if event.key ==pygame.K_BACKSPACE: #not working 
                 userName=userName[:-1]
+                print('back')
             else:
                 userName += event.unicode
+        pygame.draw.rect(screen, bxClr, nameBox)
         textSurface=MENU_FONT.render(userName, True, nameClr)
         #use rect x and y to  allign the text 
         screen.blit(textSurface, (nameBox.x+5, nameBox.y+5))
 
         pygame.display.flip()
         clock.tick(60)
-            
+        
