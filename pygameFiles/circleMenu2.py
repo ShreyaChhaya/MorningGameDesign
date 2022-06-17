@@ -238,10 +238,12 @@ def settings():
                     WIDTH +=100
                     HEIGHT +=100
                     screen=pygame.display.set_mode((WIDTH, HEIGHT))
+                    settings()
                 if Button_5.collidepoint((mx,my)) and WIDTH>600 and HEIGHT>600:
                     WIDTH -=100
                     HEIGHT -=100
                     screen=pygame.display.set_mode((WIDTH, HEIGHT))
+                    settings()
             pygame.display.update()
 
 
