@@ -174,17 +174,18 @@ def gameEnd():
             mx=mousePos[0]
             my=mousePos[1]
             if Button_yes.collidepoint((mx, my)):
-                Game = True
+                # markers.clear()
+                # markers=[]
                 zero_Array()
                 pygame.display.update()
-            if Button_no.collidepoint((mx, my)):
+            if Button_no.collidepoint((mx, my)): #why button taking so long?
                 text=MENU_FONT.render('Bye!', 1, (cirClr))
                 screen.fill(backgrnd)
                 screen.blit(text, (WIDTH/2.5, HEIGHT/2.5))
-                Game = False
                 pygame.display.update()
                 pygame.time.delay(1000)
-                pygame.display.quit()
+                pygame.quit()
+                sys.exit()
                 
 
 zero_Array()
