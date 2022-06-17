@@ -27,6 +27,7 @@ HEIGHT=700
 TITLE_FONT = pygame.font.SysFont('comicsans', WIDTH//20)
 MENU_FONT = pygame.font.SysFont('comicsans', WIDTH//30)
 colors={"white":(255,255,255),"pink":(255,0,255),"blue":(0,0,255),"limeGreen":(153,255,51), 'red':(255, 0, 0), 'purple': (138,43,226), 'yellow':(255,215,0), 'black':(0,0,0), 'lblue':(0,206,209)}
+clock=pygame.time.Clock()
 
 message=['Instructions', 'Settings', 'Game 1', 'Game 2', 'Scoreboard', 'Exit']
 #create dispay wind with any name y like
@@ -247,9 +248,6 @@ def settings():
             pygame.display.update()
 
 
-
-
-
 def scoreboard():
     high=0
     title=TITLE_FONT.render('Scoreboard', 1, colors.get('blue'))
@@ -429,6 +427,7 @@ def Game_1():
         pygame.draw.circle(screen, colors.get("red"), (cx, cy), rad)
         
         pygame.display.update()
+        clock.tick(60)
 
     print(score)
 
