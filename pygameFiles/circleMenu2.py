@@ -72,7 +72,7 @@ def mainMenu():
         Button_menu=pygame.Rect(WIDTH/2.5, yMenu, WIDTH/4, 40)
         text=MENU_FONT.render(item, 1, colors.get('blue'))
         pygame.draw.rect(screen, colors.get('limeGreen'), Button_menu)
-        screen.blit(text, (Bx, yMenu))
+        screen.blit(text, (WIDTH/2.5, yMenu))
         pygame.display.update()
         pygame.time.delay(50)
         yMenu += 50
@@ -234,11 +234,11 @@ def settings():
                     mixer.music.stop()
                     print("music off")
                     #buttons for sizing
-                if Button_4.collidepoint((mx,my)) and WIDTH <1100 and HEIGHT<1100:
+                if Button_4.collidepoint((mx,my)) and WIDTH <1000 and HEIGHT<1000:
                     WIDTH +=100
                     HEIGHT +=100
                     screen=pygame.display.set_mode((WIDTH, HEIGHT))
-                if Button_5.collidepoint((mx,my)) and WIDTH>500 and HEIGHT>500:
+                if Button_5.collidepoint((mx,my)) and WIDTH>600 and HEIGHT>600:
                     WIDTH -=100
                     HEIGHT -=100
                     screen=pygame.display.set_mode((WIDTH, HEIGHT))
