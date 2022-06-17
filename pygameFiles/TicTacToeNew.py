@@ -21,7 +21,7 @@ colors={"white":(255,255,255),"pink":(255,0,255),"blue":(0,0,255),"limeGreen":(1
 screen=pygame.display.set_mode((WIDTH,HEIGHT)) 
 pygame.display.set_caption('Tic Tac Toe')
 
-
+clock=pygame.time.Clock()
 
 player=1   #change player
 gameOver=False #check if game is over
@@ -217,4 +217,8 @@ while Game:
                     gameOver = False
                     gameEnd()
                     print('i am back')
+pygame.display.update()
+clock.tick(60)
+
+
 
