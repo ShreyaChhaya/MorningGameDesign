@@ -150,8 +150,7 @@ def checkWinner():
             tieGame()
 
 def gameEnd():
-    global Game
-    Game = False
+    global markers 
     screen.fill(backgrnd)
     #question
     textagn=MENU_FONT.render('Would you like to play again?', 1, (cirClr))
@@ -167,25 +166,31 @@ def gameEnd():
     screen.blit(textYes, (WIDTH//4, HEIGHT//2))
     screen.blit(textNo, (3*WIDTH//4, HEIGHT//2))
     pygame.display.update()
-    pygame.time.delay(10000)
-    for event in pygame.event.get():
-        if event.type==pygame.MOUSEBUTTONDOWN:
-            mousePos=pygame.mouse.get_pos()
-            mx=mousePos[0]
-            my=mousePos[1]
-            if Button_yes.collidepoint((mx, my)):
-                # markers.clear()
-                # markers=[]
-                zero_Array()
-                pygame.display.update()
-            if Button_no.collidepoint((mx, my)): #why button taking so long?
-                text=MENU_FONT.render('Bye!', 1, (cirClr))
-                screen.fill(backgrnd)
-                screen.blit(text, (WIDTH/2.5, HEIGHT/2.5))
-                pygame.display.update()
-                pygame.time.delay(1000)
-                pygame.quit()
-                sys.exit()
+    run=True 
+    while run:
+        for event in pygame.event.get():
+            if event.type==pygame.QUIT:
+                print('go to menu')
+            if event.type==pygame.MOUSEBUTTONDOWN:
+                mousePos=pygame.mouse.get_pos()
+                mx=mousePos[0]
+                my=mousePos[1]
+                if Button_yes.collidepoint((mx, my)):
+                    print('yes')
+                    run = False
+                    markers = []
+                    zero_Array()
+                    pygame.display.update()
+                if Button_no.collidepoint((mx, my)): #why button taking so long?
+                    text=MENU_FONT.render('Bye!', 1, (cirClr))
+                    screen.fill(backgrnd)
+                    screen.blit(text, (WIDTH/2.5, HEIGHT/2.5))
+                    pygame.display.update()
+                    pygame.time.delay(1000)
+                    pygame.quit()
+                    sys.exit()
+    print('end of function')
+                    #go to menu
                 
 
 zero_Array()
@@ -209,5 +214,7 @@ while Game:
                 checkWinner()
                 print(winner)
                 if gameOver:
+                    gameOver = False
                     gameEnd()
+                    print('i am back')
 
