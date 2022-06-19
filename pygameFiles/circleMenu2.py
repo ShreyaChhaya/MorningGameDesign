@@ -664,7 +664,7 @@ def Game_2():
     pygame.display.update()
 
 
-                  
+#USERNAME - TYPING NOT SHOWING UP   
 run = True 
 screen.fill(menuColor)
 userName=''
@@ -697,10 +697,11 @@ while run:
                 print('back')
             else:
                 userName += event.unicode
-        #pygame.draw.rect(screen, bxClr, nameBox)
+        pygame.draw.rect(screen, bxClr, nameBox)
         textSurface=MENU_FONT.render(userName, True, nameClr)
         #use rect x and y to  allign the text 
         screen.blit(textSurface, (nameBox.x+5, nameBox.y+5))
+        pygame.display.update()
         
         
 mainMenu()
