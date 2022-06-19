@@ -154,6 +154,8 @@ def gameEnd():
     screen.fill(backgrnd)
     #question
     textagn=MENU_FONT.render('Would you like to play again?', 1, (cirClr))
+    textMOre=MENU_FONT.render('Click yes twice to play again. If not click no', 1, (cirClr))
+    screen.blit(textMOre, (WIDTH/4, HEIGHT/2.3))
     screen.blit(textagn,(WIDTH/2.8, HEIGHT/2.8))
     #buttons yes and no
     Button_yes=pygame.Rect(WIDTH/4, HEIGHT//2, 100, 50)
@@ -165,6 +167,8 @@ def gameEnd():
     textNo=MENU_FONT.render('No', 1, (cirClr))
     screen.blit(textYes, (WIDTH//4, HEIGHT//2))
     screen.blit(textNo, (3*WIDTH//4, HEIGHT//2))
+    textWin1=MENU_FONT.render('Player X won the whole game!', 1, (cirClr))
+    textWin2=MENU_FONT.render('Player O won the whole game!', 1, (cirClr))
     pygame.display.update()
     run=True 
     while run:
@@ -176,8 +180,8 @@ def gameEnd():
                 mx=mousePos[0]
                 my=mousePos[1]
                 if Button_yes.collidepoint((mx, my)):
-                    print('yes')
                     run = False
+                    markers.clear()
                     markers = []
                     zero_Array()
                     pygame.display.update()
@@ -185,11 +189,14 @@ def gameEnd():
                     text=MENU_FONT.render('Bye!', 1, (cirClr))
                     screen.fill(backgrnd)
                     screen.blit(text, (WIDTH/2.5, HEIGHT/2.5))
+                    if scoreOne>scoreTwo:
+                        screen.blit(textWin1, (WIDTH/3.5, HEIGHT/1.5))
+                    if scoreOne<scoreTwo:
+                        screen.blit(textWin2, (WIDTH/3.5, HEIGHT/1.5))
                     pygame.display.update()
-                    pygame.time.delay(1000)
+                    pygame.time.delay(2000)
                     pygame.quit()
                     sys.exit()
-    print('end of function')
                     #go to menu
                 
 
@@ -216,7 +223,6 @@ while Game:
                 if gameOver:
                     gameOver = False
                     gameEnd()
-                    print('i am back')
 pygame.display.update()
 clock.tick(60)
 
