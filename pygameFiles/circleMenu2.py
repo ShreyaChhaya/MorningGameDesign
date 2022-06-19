@@ -1,4 +1,4 @@
-# #Maria Suarez
+# #shreyaChhaya
 # #6/9/2022
 # #We are learning pygame basic functins, 
 # # creating screens, clrs, shape ,move 
@@ -14,7 +14,7 @@
 
 from subprocess import HIGH_PRIORITY_CLASS
 import sys
-import pygame, time,os,random, math, datetime
+import pygame, time, os,random, math, datetime
 date=datetime.datetime.now()
 from pygame import mixer
 from pygame.locals import*
@@ -35,44 +35,6 @@ message=['Instructions', 'Settings', 'Game 1', 'Game 2', 'Scoreboard', 'Exit']
 #create dispay wind with any name y like
 screen=pygame.display.set_mode((WIDTH,HEIGHT)) 
 pygame.display.set_caption("My First Game")  #change the title of my window
-
-run = True 
-screen.fill(menuColor)
-userName=''
-nameClr=(colors.get('blue')) #for text for name
-bxClr=(200, 200, 200) #text box 
-
-title=TITLE_FONT.render('Enter Name', 1, bxClr)
-screen.blit(title, (WIDTH/2.5, HEIGHT//7))
-pygame.display.update()
-
-nameBox=pygame.Rect(WIDTH//4, HEIGHT//3, WIDTH//2, HEIGHT//10)
-pygame.draw.rect(screen, bxClr, nameBox)
-pygame.display.update()
-while run:
-    for event in pygame.event.get():
-        if event.type==pygame.QUIT:
-            #Menu(mainTitle,messageMenu)
-            pygame.quit()
-            sys.exit()
-            print("You quit")
-        if event.type == pygame.MOUSEBUTTONDOWN:
-            print()
-        if event.type == pygame.KEYDOWN:
-            if event.key == pygame.K_RETURN:
-                print(userName)
-                #run main menu - if in main program
-                pygame.quit()
-                sys.exit()
-            if event.key ==pygame.K_BACKSPACE: 
-                userName=userName[:-1]
-                print('back')
-            else:
-                userName += event.unicode
-        pygame.draw.rect(screen, bxClr, nameBox)
-        textSurface=MENU_FONT.render(userName, True, nameClr)
-        #use rect x and y to  allign the text 
-        screen.blit(textSurface, (nameBox.x+5, nameBox.y+5))
 
 
 #background music
@@ -308,7 +270,7 @@ def scoreboard():
     # if score>high:
     #     high=score
     # scrLine=str(high)+"\t " (':')+ "\t" +date.strftime('%m/%d/%Y')+ "\n"
-    scrLine=str(score)+(': ')+ "\t"+date.strftime("%m-%d-%Y")+ "\n"
+    scrLine=str(score)+(': ')+ '\t'+ userName+ "\t"+date.strftime("%m-%d-%Y")+ "\n"
     myFile = open("PygameFiles\scoreboard.txt", "a")
     myFile.write(str(scrLine))
     myFile.close()
@@ -498,6 +460,8 @@ def Game_2():
     player=1   #change player
     gameOver=False #check if game is over
     markers=[] #control cells
+    global scoreOne
+    global scoreTwo
     scoreOne=0
     scoreTwo=0
     winner = 0 #this means tie - save winner here either 1 or -1
@@ -570,6 +534,7 @@ def Game_2():
         pygame.display.update()
 
 
+
     def checkWinner():
         global gameOver, winner, scoreOne, scoreTwo
         x_position=0
@@ -609,35 +574,69 @@ def Game_2():
             gameOver=True
             o_winner()
         #check tie
-        if gameOver == False:
-            tie = True
-            for ROW in markers:
-                for COL in ROW:
-                    if COL ==0:
-                        tie = False
-            #return winner 
-            if tie:  #in a boolean variable you dotn need ==
-                gameOver=True
-                winner=0
-                print(winner)
-                tieGame()
-    text = MENU_FONT.render('Return to Menu', 1, (cirClr))
-    screen.blit(text, (WIDTH/18, HEIGHT/1.1))
-    Button_1 = pygame.Rect(WIDTH//18, HEIGHT/1.1, WIDTH//4, 40)
-    pygame.draw.rect(screen, colors.get("limeGreen"), Button_1)
-    while True:
-        for event in pygame.event.get():
-            if event.type==pygame.QUIT:
-                run=False
-                mainMenu()
-                print("You quit")
-            if event.type==pygame.MOUSEBUTTONDOWN:
-                mousePos=pygame.mouse.get_pos()
-                mx=mousePos[0]
-                my=mousePos[1]
-                #button for menu
-                if Button_1.collidepoint((mx, my)):
-                    mainMenu()
+        # if gameOver == False:
+        #     tie = True
+        #     for ROW in markers:
+        #         for COL in ROW:
+        #             if COL ==0:
+        #                 tie = False
+        #     #return winner 
+        #     if tie:  #in a boolean variable you dotn need ==
+        #         gameOver=True
+        #         winner=0
+        #         print(winner)
+        #         tieGame()
+
+    def gameEnd():
+            #global markers 
+            screen.fill(backgrnd)
+            #question
+            textagn=MENU_FONT.render('Would you like to play again?', 1, (cirClr))
+            screen.blit(textagn,(WIDTH/2.8, HEIGHT/2.8))
+            #buttons yes and no
+            Button_yes=pygame.Rect(WIDTH/4, HEIGHT//2, 100, 50)
+            Button_no=pygame.Rect(3*WIDTH/4, HEIGHT//2, 100, 50)
+            pygame.draw.rect(screen, colors.get('pink'), Button_yes)
+            pygame.draw.rect(screen, colors.get('pink'), Button_no)
+            #text yes and no
+            textYes=MENU_FONT.render('Yes', 1, (cirClr))
+            textNo=MENU_FONT.render('No', 1, (cirClr))
+            screen.blit(textYes, (WIDTH//4, HEIGHT//2))
+            screen.blit(textNo, (3*WIDTH//4, HEIGHT//2))
+            text = MENU_FONT.render('Return to Menu', 1, (cirClr))
+            screen.blit(text, (WIDTH/18, HEIGHT/1.1))
+            Button_1 = pygame.Rect(WIDTH//18, HEIGHT/1.1, WIDTH//4, 40)
+            pygame.draw.rect(screen, colors.get("limeGreen"), Button_1)
+            pygame.display.update()
+            run=True 
+            while run:
+                for event in pygame.event.get():
+                    if event.type==pygame.QUIT:
+                        print('go to menu')
+                    if event.type==pygame.MOUSEBUTTONDOWN:
+                        mousePos=pygame.mouse.get_pos()
+                        mx=mousePos[0]
+                        my=mousePos[1]
+                        #button for menu
+                    if Button_1.collidepoint((mx, my)):
+                        mainMenu()
+                        # if Button_yes.collidepoint((mx, my)):
+                        #     print('yes')
+                        #     run = False
+                        #     markers = []
+                        #     zero_Array()
+                        #     pygame.display.update()
+                        # if Button_no.collidepoint((mx, my)): #why button taking so long?
+                        #     text=MENU_FONT.render('Bye!', 1, (cirClr))
+                        #     screen.fill(backgrnd)
+                        #     screen.blit(text, (WIDTH/2.5, HEIGHT/2.5))
+                        #     pygame.display.update()
+                        #     pygame.time.delay(1000)
+                        #     pygame.quit()
+                        #     sys.exit()
+
+    
+    
     zero_Array()
     while Game:
         screen.fill(backgrnd)
@@ -665,49 +664,43 @@ def Game_2():
     pygame.display.update()
 
 
-    # def gameEnd():
-    #     global markers 
-    #     screen.fill(backgrnd)
-    #     #question
-    #     textagn=MENU_FONT.render('Would you like to play again?', 1, (cirClr))
-    #     screen.blit(textagn,(WIDTH/2.8, HEIGHT/2.8))
-    #     #buttons yes and no
-    #     Button_yes=pygame.Rect(WIDTH/4, HEIGHT//2, 100, 50)
-    #     Button_no=pygame.Rect(3*WIDTH/4, HEIGHT//2, 100, 50)
-    #     pygame.draw.rect(screen, colors.get('pink'), Button_yes)
-    #     pygame.draw.rect(screen, colors.get('pink'), Button_no)
-    #     #text yes and no
-    #     textYes=MENU_FONT.render('Yes', 1, (cirClr))
-    #     textNo=MENU_FONT.render('No', 1, (cirClr))
-    #     screen.blit(textYes, (WIDTH//4, HEIGHT//2))
-    #     screen.blit(textNo, (3*WIDTH//4, HEIGHT//2))
-    #     pygame.display.update()
-        # run=True 
-        # while run:
-        #     for event in pygame.event.get():
-        #         if event.type==pygame.QUIT:
-        #             print('go to menu')
-        #         if event.type==pygame.MOUSEBUTTONDOWN:
-        #             mousePos=pygame.mouse.get_pos()
-        #             mx=mousePos[0]
-        #             my=mousePos[1]
-        #             if Button_yes.collidepoint((mx, my)):
-        #                 print('yes')
-        #                 run = False
-        #                 markers = []
-        #                 zero_Array()
-        #                 pygame.display.update()
-        #             if Button_no.collidepoint((mx, my)): #why button taking so long?
-        #                 text=MENU_FONT.render('Bye!', 1, (cirClr))
-        #                 screen.fill(backgrnd)
-        #                 screen.blit(text, (WIDTH/2.5, HEIGHT/2.5))
-        #                 pygame.display.update()
-        #                 pygame.time.delay(1000)
-        #                 pygame.quit()
-        #                 sys.exit()
-        # print('end of function')
-        #                 #go to menu
-                    
+                  
+run = True 
+screen.fill(menuColor)
+userName=''
+nameClr=(colors.get('blue')) #for text for name
+bxClr=(200, 200, 200) #text box 
+
+title=TITLE_FONT.render('Enter Name', 1, bxClr)
+screen.blit(title, (WIDTH/2.5, HEIGHT//7))
+pygame.display.update()
+
+
+nameBox=pygame.Rect(WIDTH//4, HEIGHT//3, WIDTH//2, HEIGHT//10)
+pygame.draw.rect(screen, bxClr, nameBox)
+pygame.display.update()
+while run:
+    for event in pygame.event.get():
+        if event.type==pygame.QUIT:
+            #Menu(mainTitle,messageMenu)
+            mainMenu()
+            print("You quit")
+        if event.type == pygame.MOUSEBUTTONDOWN:
+            print()
+        if event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_RETURN:
+                print(userName)
+                #run main menu - if in main program
+                mainMenu()
+            if event.key ==pygame.K_BACKSPACE: 
+                userName=userName[:-1]
+                print('back')
+            else:
+                userName += event.unicode
+        #pygame.draw.rect(screen, bxClr, nameBox)
+        textSurface=MENU_FONT.render(userName, True, nameClr)
+        #use rect x and y to  allign the text 
+        screen.blit(textSurface, (nameBox.x+5, nameBox.y+5))
         
         
 mainMenu()
