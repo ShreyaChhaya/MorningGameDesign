@@ -1,3 +1,9 @@
+#shreya Chhaya
+#final project code - sky burger adaptation
+#functions
+#Game1()
+#game2()
+
 # #shreyaChhaya
 # #6/9/2022
 # #We are learning pygame basic functins, 
