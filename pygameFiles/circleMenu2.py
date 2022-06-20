@@ -145,8 +145,7 @@ def Instructions():
         for event in pygame.event.get():
             if event.type==pygame.QUIT:
                 Instructions=False
-                pygame.display.quit()
-                print("You quit")
+                mainMenu()
             if event.type == pygame.MOUSEBUTTONDOWN:
                 mousePos = pygame.mouse.get_pos()
                 mx = mousePos[0]
@@ -294,7 +293,7 @@ def scoreboard():
         for event in pygame.event.get():
             if event.type==pygame.QUIT:
                 run=False
-                pygame.display.quit()
+                mainMenu()
                 print("You quit")
             if event.type==pygame.MOUSEBUTTONDOWN:
                 mousePos=pygame.mouse.get_pos()
@@ -445,7 +444,7 @@ def Game_1():
         for event in pygame.event.get():
             if event.type==pygame.QUIT:
                 run=False
-                pygame.display.quit()
+                mainMenu()
                 print("You quit")
             if event.type==pygame.MOUSEBUTTONDOWN:
                 mousePos=pygame.mouse.get_pos()
@@ -455,15 +454,15 @@ def Game_1():
                     mainMenu()
 
     
-
+gameOver=False #check if game is over
 def Game_2():
     global mx
     global my
     player=1   #change player
-    gameOver=False #check if game is over
     markers=[] #control cells
     global scoreOne
     global scoreTwo
+    global gameOver
     scoreOne=0
     scoreTwo=0
     winner = 0 #this means tie - save winner here either 1 or -1
@@ -567,10 +566,11 @@ def Game_2():
 
 
     def tieGame():
+        mx=0
+        my=0
         screen.fill(backgrnd)
         textTie=MENU_FONT.render("It's a tie!", 1, (cirClr))
         screen.blit(textTie, (WIDTH/2.5, HEIGHT/2.5))
-        pygame.display.update()
         Button_1 = pygame.Rect(WIDTH//18, HEIGHT/1.1, WIDTH//4, 40)
         pygame.draw.rect(screen, colors.get("limeGreen"), Button_1)
         text = MENU_FONT.render('Return to Menu', 1, (cirClr))
@@ -579,6 +579,7 @@ def Game_2():
         while run:
             for event in pygame.event.get():
                 if event.type==pygame.QUIT:
+                    run=False
                     mainMenu()
                 if event.type==pygame.MOUSEBUTTONDOWN:
                     mousePos=pygame.mouse.get_pos()
@@ -631,18 +632,18 @@ def Game_2():
             o_winner()
         #check tie
         #this part is not working - gameOver==False not defined 
-        # if gameOver == False:
-        #     tie = True
-        #     for ROW in markers:
-        #         for COL in ROW:
-        #             if COL ==0:
-        #                 tie = False
-        #     #return winner 
-        #     if tie:  #in a boolean variable you dotn need ==
-        #         gameOver=True
-        #         winner=0
-        #         print(winner)
-        #         tieGame()
+        if gameOver == False:
+            tie = True
+            for ROW in markers:
+                for COL in ROW:
+                    if COL ==0:
+                        tie = False
+            #return winner 
+            if tie:  #in a boolean variable you dotn need ==
+                gameOver=True
+                winner=0
+                print(winner)
+                tieGame()
 
     zero_Array()
     while Game:
