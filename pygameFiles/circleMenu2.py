@@ -589,7 +589,7 @@ def Game_2():
                     #button for menu
                 if Button_1.collidepoint((mx, my)):
                     mainMenu()
-        pygame.time.delay(5000)
+        pygame.time.delay(1000)
         pygame.display.update()
         
 
