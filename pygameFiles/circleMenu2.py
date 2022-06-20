@@ -457,6 +457,8 @@ def Game_1():
     
 
 def Game_2():
+    global mx
+    global my
     player=1   #change player
     gameOver=False #check if game is over
     markers=[] #control cells
@@ -510,11 +512,30 @@ def Game_2():
         screen.blit(textScore, (WIDTH/4, HEIGHT/1.5))
         screen.blit(text2Score, (WIDTH/1.75, HEIGHT/1.5))
         screen.blit(text, (WIDTH/2.5, HEIGHT/2.5))
+        ButtonBack = pygame.Rect(WIDTH//18, HEIGHT/1.1, WIDTH//4, 40)
+        pygame.draw.rect(screen, colors.get("limeGreen"), ButtonBack)
+        text = MENU_FONT.render('Return to Menu', 1, colors.get('blue'))
+        screen.blit(text, (WIDTH/18, HEIGHT/1.1))
+        pygame.display.update()
+        run=True 
+        while run:
+            for event in pygame.event.get():
+                if event.type==pygame.QUIT:
+                    mainMenu()
+                if event.type==pygame.MOUSEBUTTONDOWN:
+                    mousePos=pygame.mouse.get_pos()
+                    mx=mousePos[0]
+                    my=mousePos[1]
+                    #button for menu
+                    if ButtonBack.collidepoint((mx, my)):
+                        mainMenu()
+        pygame.time.delay(5000)
 
         pygame.display.update()
 
 
     def o_winner():
+        global mx, my
         screen.fill(backgrnd)
         sx=str(scoreOne)
         so=str(scoreTwo)
@@ -524,7 +545,25 @@ def Game_2():
         screen.blit(textScore, (WIDTH/4, HEIGHT/1.5))
         screen.blit(text2Score, (WIDTH/1.75, HEIGHT/1.5))
         screen.blit(texto, (WIDTH/2.5, HEIGHT/2.5))
+        Button_1 = pygame.Rect(WIDTH//18, HEIGHT/1.1, WIDTH//4, 40)
+        pygame.draw.rect(screen, colors.get("limeGreen"), Button_1)
+        text = MENU_FONT.render('Return to Menu', 1, colors.get('blue'))
+        screen.blit(text, (WIDTH/18, HEIGHT/1.1))
         pygame.display.update()
+        run=True 
+        while run:
+            for event in pygame.event.get():
+                if event.type==pygame.QUIT:
+                    mainMenu()
+                if event.type==pygame.MOUSEBUTTONDOWN:
+                    mousePos=pygame.mouse.get_pos()
+                    mx=mousePos[0]
+                    my=mousePos[1]
+                    #button for menu
+                if Button_1.collidepoint((mx, my)):
+                    mainMenu()
+        pygame.display.update()
+        pygame.time.delay(5000)
 
 
     def tieGame():
@@ -532,8 +571,25 @@ def Game_2():
         textTie=MENU_FONT.render("It's a tie!", 1, (cirClr))
         screen.blit(textTie, (WIDTH/2.5, HEIGHT/2.5))
         pygame.display.update()
-
-
+        Button_1 = pygame.Rect(WIDTH//18, HEIGHT/1.1, WIDTH//4, 40)
+        pygame.draw.rect(screen, colors.get("limeGreen"), Button_1)
+        text = MENU_FONT.render('Return to Menu', 1, (cirClr))
+        screen.blit(text, (WIDTH/18, HEIGHT/1.1))
+        run=True 
+        while run:
+            for event in pygame.event.get():
+                if event.type==pygame.QUIT:
+                    mainMenu()
+                if event.type==pygame.MOUSEBUTTONDOWN:
+                    mousePos=pygame.mouse.get_pos()
+                    mx=mousePos[0]
+                    my=mousePos[1]
+                    #button for menu
+                if Button_1.collidepoint((mx, my)):
+                    mainMenu()
+        pygame.time.delay(5000)
+        pygame.display.update()
+        
 
     def checkWinner():
         global gameOver, winner, scoreOne, scoreTwo
@@ -574,6 +630,7 @@ def Game_2():
             gameOver=True
             o_winner()
         #check tie
+        #this part is not working - gameOver==False not defined 
         # if gameOver == False:
         #     tie = True
         #     for ROW in markers:
@@ -587,56 +644,6 @@ def Game_2():
         #         print(winner)
         #         tieGame()
 
-    def gameEnd():
-            #global markers 
-            screen.fill(backgrnd)
-            #question
-            textagn=MENU_FONT.render('Would you like to play again?', 1, (cirClr))
-            screen.blit(textagn,(WIDTH/2.8, HEIGHT/2.8))
-            #buttons yes and no
-            Button_yes=pygame.Rect(WIDTH/4, HEIGHT//2, 100, 50)
-            Button_no=pygame.Rect(3*WIDTH/4, HEIGHT//2, 100, 50)
-            pygame.draw.rect(screen, colors.get('pink'), Button_yes)
-            pygame.draw.rect(screen, colors.get('pink'), Button_no)
-            #text yes and no
-            textYes=MENU_FONT.render('Yes', 1, (cirClr))
-            textNo=MENU_FONT.render('No', 1, (cirClr))
-            screen.blit(textYes, (WIDTH//4, HEIGHT//2))
-            screen.blit(textNo, (3*WIDTH//4, HEIGHT//2))
-            text = MENU_FONT.render('Return to Menu', 1, (cirClr))
-            screen.blit(text, (WIDTH/18, HEIGHT/1.1))
-            Button_1 = pygame.Rect(WIDTH//18, HEIGHT/1.1, WIDTH//4, 40)
-            pygame.draw.rect(screen, colors.get("limeGreen"), Button_1)
-            pygame.display.update()
-            run=True 
-            while run:
-                for event in pygame.event.get():
-                    if event.type==pygame.QUIT:
-                        print('go to menu')
-                    if event.type==pygame.MOUSEBUTTONDOWN:
-                        mousePos=pygame.mouse.get_pos()
-                        mx=mousePos[0]
-                        my=mousePos[1]
-                        #button for menu
-                    if Button_1.collidepoint((mx, my)):
-                        mainMenu()
-                        # if Button_yes.collidepoint((mx, my)):
-                        #     print('yes')
-                        #     run = False
-                        #     markers = []
-                        #     zero_Array()
-                        #     pygame.display.update()
-                        # if Button_no.collidepoint((mx, my)): #why button taking so long?
-                        #     text=MENU_FONT.render('Bye!', 1, (cirClr))
-                        #     screen.fill(backgrnd)
-                        #     screen.blit(text, (WIDTH/2.5, HEIGHT/2.5))
-                        #     pygame.display.update()
-                        #     pygame.time.delay(1000)
-                        #     pygame.quit()
-                        #     sys.exit()
-
-    
-    
     zero_Array()
     while Game:
         screen.fill(backgrnd)
@@ -645,9 +652,7 @@ def Game_2():
         for event in pygame.event.get():
             if event.type==pygame.QUIT:
                 #Menu(mainTitle,messageMenu)
-                pygame.quit()
-                sys.exit()
-                print("You quit")
+                mainMenu()
             if event.type == pygame.MOUSEBUTTONDOWN:
                 MxMy = pygame.mouse.get_pos()
                 cellx=MxMy[0]//(WIDTH//3)
@@ -659,12 +664,8 @@ def Game_2():
                     print(winner)
                     if gameOver:
                         gameOver = False
-                        gameEnd()
-                        print('i am back')
     pygame.display.update()
-
-
-#USERNAME - TYPING NOT SHOWING UP   
+ 
 run = True 
 screen.fill(menuColor)
 userName=''
