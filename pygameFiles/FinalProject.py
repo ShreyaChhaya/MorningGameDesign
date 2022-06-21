@@ -323,20 +323,38 @@ def exit():
 
 
 def Game_1():
+    speed=2
+    charx=100
+    wb=50
     global score
     score = 0
     bg=pygame.image.load('pygameFiles\Images\\backgroundlevel1.jpg')
     bg=pygame.transform.scale(bg, (WIDTH, HEIGHT))
+    char = pygame.image.load('pygameFiles\Images\\bottom bun.png')
+    char = pygame.transform.scale(char, (400,300))
     screen.blit(bg, (0,0))
+    screen.blit(char, (WIDTH/2.5,HEIGHT/2))
     pygame.display.update()
-    pygame.time.delay(5000)
+    pygame.time.delay(2000)
+    # run = True
+    # while run:
+    #     keys = pygame.key.get_pressed() #allow us to see what key was pressed
+    #     if keys[pygame.K_RIGHT] and charx < WIDTH-(wb):
+    #         charx += speed
+    #     if keys[pygame.K_LEFT] and charx > speed:
+    #         charx -= speed
+    # pygame.display.update()
 
 
+    #have end of game to to game over function and make this into function after game completed
     screen.fill(colors.get('black'))
 
     #button to return to menu
     title=TITLE_FONT.render('GAME OVER', 1, colors.get('blue'))
     screen.blit(title, (WIDTH/3, HEIGHT/3))
+    #text for score - add sore inwhen game complete
+    scoretext=MENU_FONT.render('Your score is ', 1, colors.get('blue'))
+    screen.blit(scoretext, (WIDTH/3, HEIGHT/2))
     ButtonBack1 = pygame.Rect(WIDTH//18, HEIGHT/1.1, WIDTH//4, 40)
     pygame.draw.rect(screen, colors.get("limeGreen"), ButtonBack1)
     #return to menu text 
@@ -349,7 +367,9 @@ def Game_1():
         for event in pygame.event.get():
             if event.type==pygame.QUIT:
                 run=False
-                mainMenu()
+                #mainMenu()
+                pygame.quit()
+                sys.exit()
                 print("You quit")
             if event.type==pygame.MOUSEBUTTONDOWN:
                 mousePos=pygame.mouse.get_pos()
@@ -357,6 +377,7 @@ def Game_1():
                 my=mousePos[1]
                 if ButtonBack1.collidepoint((mx, my)):
                     mainMenu()
+    clock.tick(60)
     
 
 def Game_2():
@@ -364,16 +385,23 @@ def Game_2():
     score = 0
     bg=pygame.image.load('pygameFiles\Images\\backgroundlevel2.jpg')
     bg=pygame.transform.scale(bg, (WIDTH, HEIGHT))
+    char = pygame.image.load('pygameFiles\Images\\bottom bun.png')
+    char = pygame.transform.scale(char, (400,300))
     screen.blit(bg, (0,0))
+    screen.blit(char, (WIDTH/2.5,HEIGHT/2))
     pygame.display.update()
-    pygame.time.delay(5000)
+    pygame.time.delay(2000)
+    gameEnd=True
 
-
+    #put in game over function when finished
     screen.fill(colors.get('black'))
 
     #button to return to menu
     title=TITLE_FONT.render('GAME OVER', 1, colors.get('blue'))
     screen.blit(title, (WIDTH/3, HEIGHT/3))
+    #text for score - add score in when coding finished
+    scoretext=MENU_FONT.render('Your score is ', 1, colors.get('blue'))
+    screen.blit(scoretext, (WIDTH/3, HEIGHT/2))
     ButtonBack = pygame.Rect(WIDTH//18, HEIGHT/1.1, WIDTH//4, 40)
     pygame.draw.rect(screen, colors.get("limeGreen"), ButtonBack)
     #return to menu text 
@@ -386,7 +414,9 @@ def Game_2():
         for event in pygame.event.get():
             if event.type==pygame.QUIT:
                 run=False
-                mainMenu()
+                #mainMenu()
+                pygame.quit()
+                sys.exit()
                 print("You quit")
             if event.type==pygame.MOUSEBUTTONDOWN:
                 mousePos=pygame.mouse.get_pos()
