@@ -45,8 +45,8 @@ pygame.display.set_caption("My First Game")  #change the title of my window
 
 
 #background music
-mixer.music.load('background (1).wav')
-mixer.music.play(-1)
+# mixer.music.load('background (1).wav')
+# mixer.music.play(-1)
 
 #boxes for menu
 Bx=WIDTH/2.5
@@ -318,112 +318,99 @@ def exit():
 
     pygame.time.delay(1000)
     pygame.display.quit()
-    
-
 
 
 def Game_1():
-    speed=2
+    global WIDTH, score
+    global HEIGHT
+    speed=5
+    screen= pygame.display.set_mode((WIDTH,HEIGHT))
     charx=100
-    wb=50
-    global score
+    wb=100
     score = 0
     bg=pygame.image.load('pygameFiles\Images\\backgroundlevel1.jpg')
     bg=pygame.transform.scale(bg, (WIDTH, HEIGHT))
-    char = pygame.image.load('pygameFiles\Images\\bottom bun.png')
-    char = pygame.transform.scale(char, (400,300))
+    char = pygame.image.load('pygameFiles\Images\\bottom bun cropped (2).png')
+    char = pygame.transform.scale(char, (100, 50))
     screen.blit(bg, (0,0))
-    screen.blit(char, (WIDTH/2.5,HEIGHT/2))
+    screen.blit(char, (WIDTH/2.5,HEIGHT/1.1))
     pygame.display.update()
-    pygame.time.delay(2000)
-    # run = True
-    # while run:
-    #     keys = pygame.key.get_pressed() #allow us to see what key was pressed
-    #     if keys[pygame.K_RIGHT] and charx < WIDTH-(wb):
-    #         charx += speed
-    #     if keys[pygame.K_LEFT] and charx > speed:
-    #         charx -= speed
-    # pygame.display.update()
-
-
-    #have end of game to to game over function and make this into function after game completed
-    screen.fill(colors.get('black'))
-
-    #button to return to menu
-    title=TITLE_FONT.render('GAME OVER', 1, colors.get('blue'))
-    screen.blit(title, (WIDTH/3, HEIGHT/3))
-    #text for score - add sore inwhen game complete
-    scoretext=MENU_FONT.render('Your score is ', 1, colors.get('blue'))
-    screen.blit(scoretext, (WIDTH/3, HEIGHT/2))
-    ButtonBack1 = pygame.Rect(WIDTH//18, HEIGHT/1.1, WIDTH//4, 40)
-    pygame.draw.rect(screen, colors.get("limeGreen"), ButtonBack1)
-    #return to menu text 
-    text=MENU_FONT.render('Return to Menu', 1, colors.get('blue'))
-    screen.blit(text, (WIDTH/18, HEIGHT/1.1))
-    pygame.display.update()
-
     game1=True
     while game1:
+        clock.tick(60)
         for event in pygame.event.get():
             if event.type==pygame.QUIT:
-                run=False
-                #mainMenu()
-                pygame.quit()
-                sys.exit()
-                print("You quit")
-            if event.type==pygame.MOUSEBUTTONDOWN:
-                mousePos=pygame.mouse.get_pos()
-                mx=mousePos[0]
-                my=mousePos[1]
-                if ButtonBack1.collidepoint((mx, my)):
-                    mainMenu()
-    clock.tick(60)
-    
+                game1=False
+                mainMenu()
+        keys = pygame.key.get_pressed() #allow us to see what key was pressed
+        if keys[pygame.K_RIGHT] and charx < WIDTH-wb:
+            charx += speed
+        if keys[pygame.K_LEFT] and charx > 0:
+            charx -= speed
+        screen.blit(bg, (0,0))
+        screen.blit(char, (charx,HEIGHT/1.1))
+        pygame.display.update()
 
+    # #have end of game to to game over function and make this into function after game completed
+    # screen.fill(colors.get('black'))
+
+    # #button to return to menu
+    # title=TITLE_FONT.render('GAME OVER', 1, colors.get('blue'))
+    # screen.blit(title, (WIDTH/3, HEIGHT/3))
+    # #text for score - add sore inwhen game complete
+    # scoretext=MENU_FONT.render('Your score is ', 1, colors.get('blue'))
+    # screen.blit(scoretext, (WIDTH/3, HEIGHT/2))
+    # ButtonBack1 = pygame.Rect(WIDTH//18, HEIGHT/1.1, WIDTH//4, 40)
+    # pygame.draw.rect(screen, colors.get("limeGreen"), ButtonBack1)
+    # #return to menu text 
+    # text=MENU_FONT.render('Return to Menu', 1, colors.get('blue'))
+    # screen.blit(text, (WIDTH/18, HEIGHT/1.1))
+    # pygame.display.update()
 def Game_2():
-    global score
+    global score, WIDTH, HEIGHT
+    speed = 10
+    wb=100
+    charx=100
     score = 0
     bg=pygame.image.load('pygameFiles\Images\\backgroundlevel2.jpg')
     bg=pygame.transform.scale(bg, (WIDTH, HEIGHT))
-    char = pygame.image.load('pygameFiles\Images\\bottom bun.png')
-    char = pygame.transform.scale(char, (400,300))
+    char = pygame.image.load('pygameFiles\Images\\bottom bun cropped (2).png')
+    char = pygame.transform.scale(char, (100,50))
     screen.blit(bg, (0,0))
-    screen.blit(char, (WIDTH/2.5,HEIGHT/2))
+    screen.blit(char, (WIDTH/2.5,HEIGHT/1.1))
     pygame.display.update()
-    pygame.time.delay(2000)
-    gameEnd=True
-
-    #put in game over function when finished
-    screen.fill(colors.get('black'))
-
-    #button to return to menu
-    title=TITLE_FONT.render('GAME OVER', 1, colors.get('blue'))
-    screen.blit(title, (WIDTH/3, HEIGHT/3))
-    #text for score - add score in when coding finished
-    scoretext=MENU_FONT.render('Your score is ', 1, colors.get('blue'))
-    screen.blit(scoretext, (WIDTH/3, HEIGHT/2))
-    ButtonBack = pygame.Rect(WIDTH//18, HEIGHT/1.1, WIDTH//4, 40)
-    pygame.draw.rect(screen, colors.get("limeGreen"), ButtonBack)
-    #return to menu text 
-    text=MENU_FONT.render('Return to Menu', 1, colors.get('blue'))
-    screen.blit(text, (WIDTH/18, HEIGHT/1.1))
-    pygame.display.update()
-
     game2=True
     while game2:
+        clock.tick(60)
         for event in pygame.event.get():
             if event.type==pygame.QUIT:
-                run=False
-                #mainMenu()
-                pygame.quit()
-                sys.exit()
-                print("You quit")
-            if event.type==pygame.MOUSEBUTTONDOWN:
-                mousePos=pygame.mouse.get_pos()
-                mx=mousePos[0]
-                my=mousePos[1]
-                if ButtonBack.collidepoint((mx, my)):
-                    mainMenu()
+                game2=False
+                mainMenu()
+        keys = pygame.key.get_pressed() #allow us to see what key was pressed
+        if keys[pygame.K_RIGHT] and charx < WIDTH-wb:
+            charx += speed
+        if keys[pygame.K_LEFT] and charx > 0:
+            charx -= speed
+        screen.blit(bg, (0,0))
+        screen.blit(char, (charx,HEIGHT/1.1))
+        pygame.display.update()
+
+    # #put in game over function when finished
+    # screen.fill(colors.get('black'))
+
+    # #button to return to menu
+    # title=TITLE_FONT.render('GAME OVER', 1, colors.get('blue'))
+    # screen.blit(title, (WIDTH/3, HEIGHT/3))
+    # #text for score - add score in when coding finished
+    # scoretext=MENU_FONT.render('Your score is ', 1, colors.get('blue'))
+    # screen.blit(scoretext, (WIDTH/3, HEIGHT/2))
+    # ButtonBack = pygame.Rect(WIDTH//18, HEIGHT/1.1, WIDTH//4, 40)
+    # pygame.draw.rect(screen, colors.get("limeGreen"), ButtonBack)
+    # #return to menu text 
+    # text=MENU_FONT.render('Return to Menu', 1, colors.get('blue'))
+    # screen.blit(text, (WIDTH/18, HEIGHT/1.1))
+    # pygame.display.update()
+
 
 
  
