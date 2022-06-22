@@ -321,9 +321,12 @@ def exit():
 
 
 def Game_1():
-    global WIDTH, score
+    global WIDTH, score, tomato_y, tomato_x, char
     global HEIGHT
     speed=5
+    toppingSpeed=3
+    tomato_y=100
+    tomato_x = 100
     screen= pygame.display.set_mode((WIDTH,HEIGHT))
     charx=100
     wb=100
@@ -347,9 +350,17 @@ def Game_1():
     bg=pygame.transform.scale(bg, (WIDTH, HEIGHT))
     char = pygame.image.load('pygameFiles\Images\\burger toppings\\bottom bun cropped (2).png')
     char = pygame.transform.scale(char, (100, 50))
-    screen.blit(bg, (0,0))
+    rect= char.get_rect()
+    rect.center = WIDTH//2, HEIGHT/1.1
+    screen.blit(char, rect)
+    pygame.draw.rect(screen, colors.get('white'), rect, 1)
     screen.blit(char, (WIDTH/2.5,HEIGHT/1.1))
     pygame.display.update()
+    tomato = pygame.image.load('pygameFiles\Images\\burger toppings\\tomato.png')
+    tomato = pygame.transform.scale(tomato, (100,50))
+    Trect= tomato.get_rect()
+    rect.center = WIDTH//2, HEIGHT//2
+    screen.blit(tomato, rect)
     game1=True
     while game1:
         clock.tick(60)
@@ -357,13 +368,25 @@ def Game_1():
             if event.type==pygame.QUIT:
                 game1=False
                 mainMenu()
+    
         keys = pygame.key.get_pressed() #allow us to see what key was pressed
         if keys[pygame.K_RIGHT] and charx < WIDTH-wb:
             charx += speed
         if keys[pygame.K_LEFT] and charx > 0:
             charx -= speed
+        rect.x=charx
         screen.blit(bg, (0,0))
         screen.blit(char, (charx,HEIGHT/1.1))
+        screen.blit(tomato, (tomato_x,tomato_y))
+        tomato_y = tomato_y+toppingSpeed
+        Trect.y= Trect.y+toppingSpeed
+        if tomato_y > HEIGHT:
+            tomato_x=random.randrange(0, WIDTH-50)
+            tomato_y=-100 
+        Trect.x= tomato_x
+        Trect.y=tomato_y
+        pygame.draw.rect(screen, colors.get('white'), rect)
+        pygame.draw.rect(screen, colors.get('white'), Trect)
         pygame.display.update()
 
     # #have end of game to to game over function and make this into function after game completed
@@ -409,22 +432,6 @@ def Game_2():
         screen.blit(bg, (0,0))
         screen.blit(char, (charx,HEIGHT/1.1))
         pygame.display.update()
-
-    # #put in game over function when finished
-    # screen.fill(colors.get('black'))
-
-    # #button to return to menu
-    # title=TITLE_FONT.render('GAME OVER', 1, colors.get('blue'))
-    # screen.blit(title, (WIDTH/3, HEIGHT/3))
-    # #text for score - add score in when coding finished
-    # scoretext=MENU_FONT.render('Your score is ', 1, colors.get('blue'))
-    # screen.blit(scoretext, (WIDTH/3, HEIGHT/2))
-    # ButtonBack = pygame.Rect(WIDTH//18, HEIGHT/1.1, WIDTH//4, 40)
-    # pygame.draw.rect(screen, colors.get("limeGreen"), ButtonBack)
-    # #return to menu text 
-    # text=MENU_FONT.render('Return to Menu', 1, colors.get('blue'))
-    # screen.blit(text, (WIDTH/18, HEIGHT/1.1))
-    # pygame.display.update()
 
 
 
