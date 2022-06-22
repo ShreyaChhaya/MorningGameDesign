@@ -359,17 +359,17 @@ def Game_1():
     tomato_y=360
     tomato_x = 360
     patty_x=436
-    patty_y=0
+    patty_y=200
     onion_x=564
     onion_y=0
     mustard_x=125
-    mustard_y=0
+    mustard_y=-50
     lettuce_x=330
-    lettuce_y=0
+    lettuce_y=26
     ketchup_x=520
-    ketchup_y=0
+    ketchup_y=660
     cheese_x=260
-    cheese_y=0
+    cheese_y=144
     bunx=0
     buny=0
     img_y=0
@@ -507,6 +507,12 @@ def Game_1():
         screen.blit(topBun, (bunx, buny))
         screen.blit(pickles, (pickle_x, pickle_y))
         screen.blit(patty, (patty_x, patty_y))
+        screen.blit(onion, (onion_x, onion_y))
+        screen.blit(mustard, (mustard_x, mustard_y))
+        screen.blit(lettuce, (lettuce_x, lettuce_y))
+        screen.blit(ketchup, (ketchup_x, ketchup_y))
+        screen.blit(cheese, (cheese_x, cheese_y))
+        
 
         #if bun collides with tomato
         if not rect.colliderect(Trect):
@@ -541,7 +547,7 @@ def Game_1():
         if not rect.colliderect(rectPat):
             patty_y = patty_y+toppingSpeed
             rectPat.y= rectPat.y+toppingSpeed
-        if pickle_y > HEIGHT:
+        if patty_y > HEIGHT:
             patty_x=random.randrange(0, WIDTH-50)
             patty_y=-100 
         rectPat.x= patty_x
@@ -551,10 +557,70 @@ def Game_1():
             patty_y=chary-20
             score+=1
         #onion
+        if not rect.colliderect(rectOn):
+            onion_y = onion_y+toppingSpeed
+            rectOn.y= rectOn.y+toppingSpeed
+        if onion_y > HEIGHT:
+            onion_x=random.randrange(0, WIDTH-50)
+            onion_y=-100 
+        rectOn.x= onion_x
+        rectOn.y=onion_y
+        if rect.colliderect(rectOn):
+            onion_x=charx
+            onion_y=chary-20
+            score+=1
         #mustard
+        if not rect.colliderect(rectMus):
+            mustard_y = mustard_y+toppingSpeed
+            rectMus.y= rectMus.y+toppingSpeed
+        if pickle_y > HEIGHT:
+            mustard_x=random.randrange(0, WIDTH-50)
+            mustard_y=-100 
+        rectMus.x= patty_x
+        rectMus.y=patty_y
+        if rect.colliderect(rectMus):
+            mustard_x=charx
+            mustard_y=chary-20
+            score+=1
         #lettuce
+        if not rect.colliderect(rectLet):
+            lettuce_y = lettuce_y+toppingSpeed
+            rectLet.y= rectLet.y+toppingSpeed
+        if lettuce_y > HEIGHT:
+            lettuce_x=random.randrange(0, WIDTH-50)
+            lettuce_y=-100 
+        rectLet.x= lettuce_x
+        rectLet.y=lettuce_y
+        if rect.colliderect(rectLet):
+            lettuce_x=charx
+            lettuce_y=chary-20
+            score+=1
         #ketchup
+        if not rect.colliderect(rectKet):
+            ketchup_y = ketchup_y+toppingSpeed
+            rectKet.y= rectKet.y+toppingSpeed
+        if ketchup_y > HEIGHT:
+            ketchup_x=random.randrange(0, WIDTH-50)
+            ketchup_y=-100 
+        rectKet.x= ketchup_x
+        rectKet.y=ketchup_y
+        if rect.colliderect(rectKet):
+            ketchup_x=charx
+            ketchup_y=chary-20
+            score+=1
         #cheese
+        if not rect.colliderect(rectCh):
+            cheese_y = cheese_y+toppingSpeed
+            rectCh.y= rectCh.y+toppingSpeed
+        if cheese_y > HEIGHT:
+            cheese_x=random.randrange(0, WIDTH-50)
+            cheese_y=-100 
+        rectCh.x= cheese_x
+        rectCh.y=cheese_y
+        if rect.colliderect(rectCh):
+            cheese_x=charx
+            cheese_y=chary-20
+            score+=1
 
         
 
