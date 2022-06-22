@@ -352,12 +352,14 @@ def Game_1():
                         mainMenu() 
 
     #define/globalize variables
-    global WIDTH, score, tomato_y, tomato_x, char, bunx, buny, pickle_x, pickle_y
+    global WIDTH, score, tomato_y, tomato_x, char, bunx, buny, pickle_x, pickle_y, patty_y, patty_x
     global HEIGHT
     speed=5
     toppingSpeed=3
     tomato_y=360
     tomato_x = 360
+    patty_x=436
+    patty_y=0
     bunx=0
     buny=0
     img_y=0
@@ -504,11 +506,13 @@ def Game_1():
             tomato_y=-100 
         Trect.x= tomato_x
         Trect.y=tomato_y
+        rect.y=chary
         if rect.colliderect(Trect):
             tomato_x=charx
             tomato_y=chary-20
             score+=1
 
+        #pickles collidepoint
         if not rect.colliderect(rectPic):
             pickle_y = pickle_y+toppingSpeed
             rectPic.y= rectPic.y+toppingSpeed
@@ -521,6 +525,27 @@ def Game_1():
             pickle_x=charx
             pickle_y=chary-20
             score+=1
+
+        #patty
+        if not rect.colliderect(rectPat):
+            patty_y = patty_y+toppingSpeed
+            rectPat.y= rectPat.y+toppingSpeed
+        if pickle_y > HEIGHT:
+            patty_x=random.randrange(0, WIDTH-50)
+            patty_y=-100 
+        rectPat.x= patty_x
+        rectPat.y=patty_y
+        if rect.colliderect(rectPat):
+            patty_x=charx
+            patty_y=chary-20
+            score+=1
+        #onion
+        #mustard
+        #lettuce
+        #ketchup
+        #cheese
+
+        
 
         # for item in rectList:
         #     if not rect.colliderect(item):
