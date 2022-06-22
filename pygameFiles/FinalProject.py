@@ -352,7 +352,7 @@ def Game_1():
                         mainMenu() 
 
     #define/globalize variables
-    global WIDTH, score, tomato_y, tomato_x, char, bunx, buny, pickle_x, pickle_y, patty_y, patty_x
+    global WIDTH, score, tomato_y, tomato_x, char, bunx, buny, pickle_x, pickle_y, patty_y, patty_x, onion_x, onion_y, mustard_x, mustard_y, lettuce_x, lettuce_y, ketchup_x, ketchup_y, cheese_x, cheese_y
     global HEIGHT
     speed=5
     toppingSpeed=3
@@ -360,6 +360,16 @@ def Game_1():
     tomato_x = 360
     patty_x=436
     patty_y=0
+    onion_x=564
+    onion_y=0
+    mustard_x=125
+    mustard_y=0
+    lettuce_x=330
+    lettuce_y=0
+    ketchup_x=520
+    ketchup_y=0
+    cheese_x=260
+    cheese_y=0
     bunx=0
     buny=0
     img_y=0
@@ -496,6 +506,7 @@ def Game_1():
         screen.blit(tomato, (tomato_x,tomato_y))
         screen.blit(topBun, (bunx, buny))
         screen.blit(pickles, (pickle_x, pickle_y))
+        screen.blit(patty, (patty_x, patty_y))
 
         #if bun collides with tomato
         if not rect.colliderect(Trect):
