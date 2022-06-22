@@ -29,7 +29,7 @@ pygame.init()#initialize the pygame package
 
 os.system('cls')
 WIDTH=700 #like constant
-HEIGHT=700
+HEIGHT=600
 clock=pygame.time.Clock()
 
 menuColor = (random.randint(0,255), random.randint(0,255), random.randint(0,255))
@@ -327,48 +327,55 @@ def Game_1():
     toppingSpeed=3
     tomato_y=100
     tomato_x = 100
+    chary=HEIGHT/1.1
     screen= pygame.display.set_mode((WIDTH,HEIGHT))
     charx=100
     wb=100
-    score = 0
-    toppings = ['pygameFiles\Images\\burger toppings\\top bun.png', 
-    'pygameFiles\Images\\burger toppings\\tomato.png', 
-    'pygameFiles\Images\\burger toppings\pickles.png', 
-    'pygameFiles\Images\\burger toppings\peppers.png',
-    'pygameFiles\Images\\burger toppings\patty.png',
-    'pygameFiles\Images\\burger toppings\onion.png', 
-    'pygameFiles\Images\\burger toppings\olives.png', 
-    'pygameFiles\Images\\burger toppings\mustard.png', 
-    'pygameFiles\Images\\burger toppings\mushrooms.png', 
-    'pygameFiles\Images\\burger toppings\lettuce.png', 
-    'pygameFiles\Images\\burger toppings\ketchup.png', 
-    'pygameFiles\Images\\burger toppings\eggs.png', 
-    'pygameFiles\Images\\burger toppings\cheese.png', 
-    'pygameFiles\Images\\burger toppings\\bacon.png', 
-    'pygameFiles\Images\\burger toppings\\avocado.png']
+    score = 0 
+    #get all images for toppings
+    topBun=pygame.image.load('pygameFiles\Images\\burger toppings\\top bun.png')
+    tomato=pygame.image.load('pygameFiles\Images\\burger toppings\\tomato.png')
+    pickles=pygame.image.load('pygameFiles\Images\\burger toppings\pickles.png')
+    patty=pygame.image.load('pygameFiles\Images\\burger toppings\patty.png')
+    onion=pygame.image.load('pygameFiles\Images\\burger toppings\onion.png')
+    mustard=pygame.image.load('pygameFiles\Images\\burger toppings\mustard.png')
+    lettuce=pygame.image.load('pygameFiles\Images\\burger toppings\lettuce.png')
+    ketchup=pygame.image.load('pygameFiles\Images\\burger toppings\ketchup.png')
+    cheese=pygame.image.load('pygameFiles\Images\\burger toppings\cheese.png')
+    #list of toppings
+    imgInf=[topBun, tomato, pickles, patty, onion, mustard, lettuce, ketchup, cheese]
+    row_count = 0
+    # for img in imgInf:
+    #     imgRect=img.get_rect()
+    #     imgRect.x=0
+    #     imgRect.y=-10
+    #     tile = (img, imgRect)
+    #     imgInf.append(tile)
+
+
     bg=pygame.image.load('pygameFiles\Images\\backgroundlevel1.jpg')
     bg=pygame.transform.scale(bg, (WIDTH, HEIGHT))
     char = pygame.image.load('pygameFiles\Images\\burger toppings\\bottom bun cropped (2).png')
     char = pygame.transform.scale(char, (100, 50))
     rect= char.get_rect()
-    rect.center = WIDTH//2, HEIGHT/1.1
+    rect.center = WIDTH//2, HEIGHT/1.05
     screen.blit(char, rect)
     pygame.draw.rect(screen, colors.get('white'), rect, 1)
     screen.blit(char, (WIDTH/2.5,HEIGHT/1.1))
     pygame.display.update()
-    tomato = pygame.image.load('pygameFiles\Images\\burger toppings\\tomato.png')
     tomato = pygame.transform.scale(tomato, (100,50))
     Trect= tomato.get_rect()
-    rect.center = WIDTH//2, HEIGHT//2
+    Trect.center = WIDTH//2, HEIGHT//2
     screen.blit(tomato, rect)
     game1=True
     while game1:
+        #move character
         clock.tick(60)
         for event in pygame.event.get():
             if event.type==pygame.QUIT:
                 game1=False
                 mainMenu()
-    
+        #move character
         keys = pygame.key.get_pressed() #allow us to see what key was pressed
         if keys[pygame.K_RIGHT] and charx < WIDTH-wb:
             charx += speed
@@ -378,15 +385,19 @@ def Game_1():
         screen.blit(bg, (0,0))
         screen.blit(char, (charx,HEIGHT/1.1))
         screen.blit(tomato, (tomato_x,tomato_y))
-        tomato_y = tomato_y+toppingSpeed
-        Trect.y= Trect.y+toppingSpeed
+        if not rect.colliderect(Trect):
+            tomato_y = tomato_y+toppingSpeed
+            Trect.y= Trect.y+toppingSpeed
         if tomato_y > HEIGHT:
             tomato_x=random.randrange(0, WIDTH-50)
             tomato_y=-100 
         Trect.x= tomato_x
         Trect.y=tomato_y
-        pygame.draw.rect(screen, colors.get('white'), rect)
-        pygame.draw.rect(screen, colors.get('white'), Trect)
+        if rect.colliderect(Trect):
+            tomato_x=charx
+            tomato_y=chary-20
+        #pygame.draw.rect(screen, colors.get('white'), rect)
+        #pygame.draw.rect(screen, colors.get('white'), Trect)
         pygame.display.update()
 
     # #have end of game to to game over function and make this into function after game completed

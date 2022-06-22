@@ -1,13 +1,11 @@
-In this game, we need to use 
-the arrow keys to move the circle.
-to move the square, use W, A, S, and D. 
-Every time the shapes collide, you get a point 
-and the circle grows. 
-When you are playing the game click the x in 
-the corner and then click  'return to menu'.
-You may check the scoreboard for your score 
-after you have completed one round. 
-The second game is Tic Tac Toe
+This is Burger Stack!
+Move the bottom bun across the page
+with the right and left arrows 
+to catch the falling toppings. 
+Catch the top burger bun to end the game. 
+Level 2 has a different setting and is faster
+than level 1.
+The more toppings you catch, the higher your score will be.
 Enjoy! 
 
 
