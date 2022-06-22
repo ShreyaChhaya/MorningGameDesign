@@ -328,9 +328,24 @@ def Game_1():
     charx=100
     wb=100
     score = 0
+    toppings = ['pygameFiles\Images\\burger toppings\\top bun.png', 
+    'pygameFiles\Images\\burger toppings\\tomato.png', 
+    'pygameFiles\Images\\burger toppings\pickles.png', 
+    'pygameFiles\Images\\burger toppings\peppers.png',
+    'pygameFiles\Images\\burger toppings\patty.png',
+    'pygameFiles\Images\\burger toppings\onion.png', 
+    'pygameFiles\Images\\burger toppings\olives.png', 
+    'pygameFiles\Images\\burger toppings\mustard.png', 
+    'pygameFiles\Images\\burger toppings\mushrooms.png', 
+    'pygameFiles\Images\\burger toppings\lettuce.png', 
+    'pygameFiles\Images\\burger toppings\ketchup.png', 
+    'pygameFiles\Images\\burger toppings\eggs.png', 
+    'pygameFiles\Images\\burger toppings\cheese.png', 
+    'pygameFiles\Images\\burger toppings\\bacon.png', 
+    'pygameFiles\Images\\burger toppings\\avocado.png']
     bg=pygame.image.load('pygameFiles\Images\\backgroundlevel1.jpg')
     bg=pygame.transform.scale(bg, (WIDTH, HEIGHT))
-    char = pygame.image.load('pygameFiles\Images\\bottom bun cropped (2).png')
+    char = pygame.image.load('pygameFiles\Images\\burger toppings\\bottom bun cropped (2).png')
     char = pygame.transform.scale(char, (100, 50))
     screen.blit(bg, (0,0))
     screen.blit(char, (WIDTH/2.5,HEIGHT/1.1))
@@ -374,7 +389,7 @@ def Game_2():
     score = 0
     bg=pygame.image.load('pygameFiles\Images\\backgroundlevel2.jpg')
     bg=pygame.transform.scale(bg, (WIDTH, HEIGHT))
-    char = pygame.image.load('pygameFiles\Images\\bottom bun cropped (2).png')
+    char = pygame.image.load('pygameFiles\Images\\burger toppings\\bottom bun cropped (2).png')
     char = pygame.transform.scale(char, (100,50))
     screen.blit(bg, (0,0))
     screen.blit(char, (WIDTH/2.5,HEIGHT/1.1))
