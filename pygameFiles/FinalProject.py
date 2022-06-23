@@ -356,16 +356,16 @@ def Game_1():
     global HEIGHT
     speed=5
     toppingSpeed=3
-    tomato_y=360
+    tomato_y=222
     tomato_x = 360
     patty_x=436
-    patty_y=200
+    patty_y=380
     onion_x=564
-    onion_y=0
+    onion_y=500
     mustard_x=125
-    mustard_y=-50
+    mustard_y=-200
     lettuce_x=330
-    lettuce_y=26
+    lettuce_y=600
     ketchup_x=520
     ketchup_y=660
     cheese_x=260
@@ -374,7 +374,7 @@ def Game_1():
     buny=0
     img_y=0
     img_x=0
-    pickle_y=50
+    pickle_y=-600
     pickle_x=50
     chary=HEIGHT/1.1
     screen= pygame.display.set_mode((WIDTH,HEIGHT))
