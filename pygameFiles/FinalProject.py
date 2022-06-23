@@ -46,8 +46,8 @@ pygame.display.set_caption("Burger Stack")  #change the title of my window
 
 
 #background music
-# mixer.music.load('background (1).wav')
-# mixer.music.play(-1)
+mixer.music.load('background (1).wav')
+mixer.music.play(-1)
 
 #boxes for menu
 Bx=WIDTH/2.5
