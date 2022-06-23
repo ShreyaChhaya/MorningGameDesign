@@ -38,15 +38,15 @@ TITLE_FONT = pygame.font.SysFont('comicsans', WIDTH//20)
 MENU_FONT = pygame.font.SysFont('comicsans', WIDTH//30)
 colors={"white":(255,255,255),"pink":(255,0,255),"blue":(0,0,255),"limeGreen":(153,255,51), 'red':(255, 0, 0), 'purple': (138,43,226), 'yellow':(255,215,0), 'black':(0,0,0), 'lblue':(0,206,209)}
 
-message=['Instructions', 'Settings', 'Game 1', 'Game 2', 'Scoreboard', 'Exit']
+message=['Instructions', 'Settings', 'Level 1', 'Level 2', 'Scoreboard', 'Exit']
 #create dispay wind with any name y like
 screen=pygame.display.set_mode((WIDTH,HEIGHT)) 
-pygame.display.set_caption("My First Game")  #change the title of my window
+pygame.display.set_caption("Burger Stack")  #change the title of my window
 
 
 #background music
-# mixer.music.load('background (1).wav')
-# mixer.music.play(-1)
+mixer.music.load('background (1).wav')
+mixer.music.play(-1)
 
 #boxes for menu
 Bx=WIDTH/2.5
@@ -72,7 +72,7 @@ my = 0
 def mainMenu():
     global menuColor
     pygame.draw.rect(screen, colors.get('limeGreen'), Button_settings)
-    Title = TITLE_FONT.render("Circle eats Square Menu", 1, colors.get("blue"))
+    Title = TITLE_FONT.render("Burger Stack!", 1, colors.get("blue"))
     screen.fill(menuColor)
     xd = WIDTH//2 - (Title.get_width()//2)
     screen.blit(Title, (xd, 50))
@@ -355,25 +355,27 @@ def Game_1():
     global WIDTH, score, tomato_y, tomato_x, char, bunx, buny, pickle_x, pickle_y, patty_y, patty_x, onion_x, onion_y, mustard_x, mustard_y, lettuce_x, lettuce_y, ketchup_x, ketchup_y, cheese_x, cheese_y
     global HEIGHT
     speed=5
-    toppingSpeed=3
+    topping1Speed=8
+    topping2Speed=5
+    topping3Speed=12
     tomato_y=222
     tomato_x = 360
     patty_x=436
-    patty_y=380
+    patty_y=-700
     onion_x=564
     onion_y=500
     mustard_x=125
     mustard_y=-200
     lettuce_x=330
-    lettuce_y=600
+    lettuce_y=350
     ketchup_x=520
     ketchup_y=660
     cheese_x=260
     cheese_y=144
     bunx=0
     buny=0
-    img_y=0
-    img_x=0
+    bun2x=500
+    bun2y=333
     pickle_y=-600
     pickle_x=50
     chary=HEIGHT/1.1
@@ -384,6 +386,7 @@ def Game_1():
 
     #get all images for toppings
     topBun=pygame.image.load('pygameFiles\Images\\burger toppings\\top bun.png')
+    topBun2=pygame.image.load('pygameFiles\Images\\burger toppings\\top bun.png')
 
     tomato=pygame.image.load('pygameFiles\Images\\burger toppings\\tomato.png')
     pickles=pygame.image.load('pygameFiles\Images\\burger toppings\pickles.png')
@@ -394,15 +397,6 @@ def Game_1():
     ketchup=pygame.image.load('pygameFiles\Images\\burger toppings\ketchup.png')
     cheese=pygame.image.load('pygameFiles\Images\\burger toppings\cheese.png')
 
-    #list of toppings
-    imgInf=[tomato, pickles, patty, onion, mustard, lettuce, ketchup, cheese]
-    row_count = 0
-    # for img in imgInf:
-    #     imgRect=img.get_rect()
-    #     imgRect.x=0
-    #     imgRect.y=-10
-    #     tile = (img, imgRect)
-    #     imgInf.append(tile)
 
     #separate rectangle for top bun
     topBun=pygame.transform.scale(topBun, (100,50))
@@ -410,6 +404,12 @@ def Game_1():
     rectBun.center=WIDTH//2,HEIGHT//2
     screen.blit(topBun, rectBun)
     screen.blit(topBun, (WIDTH//2, HEIGHT//2))
+
+    topBun2=pygame.transform.scale(topBun2, (100,50))
+    rectBun2=topBun2.get_rect()
+    rectBun2.center=WIDTH//2,HEIGHT//2
+    screen.blit(topBun2, rectBun2)
+    screen.blit(topBun2, (WIDTH//2, HEIGHT//2))
 
     #rect and character tomato
     tomato = pygame.transform.scale(tomato, (100,50)) #tomato
@@ -466,8 +466,6 @@ def Game_1():
     screen.blit(cheese, rectCh) 
     screen.blit(cheese, (WIDTH//2, HEIGHT//2))
 
-    rectList=[Trect, rectPic, rectPat, rectOn, rectMus, rectLet, rectKet, rectCh]
-
     #background
     bg=pygame.image.load('pygameFiles\Images\\backgroundlevel1.jpg')
     bg=pygame.transform.scale(bg, (WIDTH, HEIGHT))
@@ -501,10 +499,13 @@ def Game_1():
         if keys[pygame.K_LEFT] and charx > 0:
             charx -= speed
         rect.x=charx
+
+        #blit all the new toppings after moving position
         screen.blit(bg, (0,0))
         screen.blit(char, (charx,HEIGHT/1.1))
         screen.blit(tomato, (tomato_x,tomato_y))
         screen.blit(topBun, (bunx, buny))
+        screen.blit(topBun2, (bun2x, bun2y))
         screen.blit(pickles, (pickle_x, pickle_y))
         screen.blit(patty, (patty_x, patty_y))
         screen.blit(onion, (onion_x, onion_y))
@@ -516,8 +517,9 @@ def Game_1():
 
         #if bun collides with tomato
         if not rect.colliderect(Trect):
-            tomato_y = tomato_y+toppingSpeed
-            Trect.y= Trect.y+toppingSpeed
+            tomato_y = tomato_y+topping1Speed
+            Trect.y= Trect.y+topping1Speed
+            score+=0
         if tomato_y > HEIGHT:
             tomato_x=random.randrange(0, WIDTH-50)
             tomato_y=-100 
@@ -528,11 +530,13 @@ def Game_1():
             tomato_x=charx
             tomato_y=chary-20
             score+=1
+            
 
         #pickles collidepoint
         if not rect.colliderect(rectPic):
-            pickle_y = pickle_y+toppingSpeed
-            rectPic.y= rectPic.y+toppingSpeed
+            pickle_y = pickle_y+topping2Speed
+            rectPic.y= rectPic.y+topping2Speed
+            score+=0
         if pickle_y > HEIGHT:
             pickle_x=random.randrange(0, WIDTH-50)
             pickle_y=-100 
@@ -545,8 +549,9 @@ def Game_1():
 
         #patty
         if not rect.colliderect(rectPat):
-            patty_y = patty_y+toppingSpeed
-            rectPat.y= rectPat.y+toppingSpeed
+            patty_y = patty_y+topping2Speed
+            rectPat.y= rectPat.y+topping2Speed
+            score+=0
         if patty_y > HEIGHT:
             patty_x=random.randrange(0, WIDTH-50)
             patty_y=-100 
@@ -558,8 +563,9 @@ def Game_1():
             score+=1
         #onion
         if not rect.colliderect(rectOn):
-            onion_y = onion_y+toppingSpeed
-            rectOn.y= rectOn.y+toppingSpeed
+            onion_y = onion_y+topping3Speed
+            rectOn.y= rectOn.y+topping3Speed
+            score+=0
         if onion_y > HEIGHT:
             onion_x=random.randrange(0, WIDTH-50)
             onion_y=-100 
@@ -571,8 +577,9 @@ def Game_1():
             score+=1
         #mustard
         if not rect.colliderect(rectMus):
-            mustard_y = mustard_y+toppingSpeed
-            rectMus.y= rectMus.y+toppingSpeed
+            mustard_y = mustard_y+topping3Speed
+            rectMus.y= rectMus.y+topping3Speed
+            score+=0
         if pickle_y > HEIGHT:
             mustard_x=random.randrange(0, WIDTH-50)
             mustard_y=-100 
@@ -584,8 +591,9 @@ def Game_1():
             score+=1
         #lettuce
         if not rect.colliderect(rectLet):
-            lettuce_y = lettuce_y+toppingSpeed
-            rectLet.y= rectLet.y+toppingSpeed
+            lettuce_y = lettuce_y+topping2Speed
+            rectLet.y= rectLet.y+topping2Speed
+            score+=0
         if lettuce_y > HEIGHT:
             lettuce_x=random.randrange(0, WIDTH-50)
             lettuce_y=-100 
@@ -595,10 +603,12 @@ def Game_1():
             lettuce_x=charx
             lettuce_y=chary-20
             score+=1
+
         #ketchup
         if not rect.colliderect(rectKet):
-            ketchup_y = ketchup_y+toppingSpeed
-            rectKet.y= rectKet.y+toppingSpeed
+            ketchup_y = ketchup_y+topping2Speed
+            rectKet.y= rectKet.y+topping2Speed
+            score+=0
         if ketchup_y > HEIGHT:
             ketchup_x=random.randrange(0, WIDTH-50)
             ketchup_y=-100 
@@ -608,10 +618,12 @@ def Game_1():
             ketchup_x=charx
             ketchup_y=chary-20
             score+=1
+
         #cheese
         if not rect.colliderect(rectCh):
-            cheese_y = cheese_y+toppingSpeed
-            rectCh.y= rectCh.y+toppingSpeed
+            cheese_y = cheese_y+topping1Speed
+            rectCh.y= rectCh.y+topping1Speed
+            score+=0
         if cheese_y > HEIGHT:
             cheese_x=random.randrange(0, WIDTH-50)
             cheese_y=-100 
@@ -622,34 +634,27 @@ def Game_1():
             cheese_y=chary-20
             score+=1
 
-        
-
-        # for item in rectList:
-        #     if not rect.colliderect(item):
-        #         img_y = img_y+toppingSpeed
-        #         item.y= item.y+toppingSpeed
-        #     if img_y > HEIGHT:
-        #         img_x=random.randrange(0, WIDTH-50)
-        #         img_y=-100 
-        #     item.x= img_x
-        #     item.y=img_y
-        #     if rect.colliderect(Trect):
-        #         img_x=charx
-        #         img_y=chary-20
-        #         score+=1
-
         #for game over- make more random with collidepoints - so far if top collides with tomato, game over
         if not rect.colliderect(rectBun):
-            buny = buny+toppingSpeed
-            rectBun.y= rectBun.y+toppingSpeed
+            buny = buny+topping1Speed
+            rectBun.y= rectBun.y+topping1Speed
         if buny > HEIGHT:
             bunx=random.randrange(0, WIDTH-50)
             buny=-100 
         rectBun.x= bunx
         rectBun.y=buny
-        if Trect.colliderect(rectBun):
+        if rect.colliderect(rectBun):
             gameOver()
-
+        if not rect.colliderect(rectBun2):
+            bun2y = bun2y+topping1Speed
+            rectBun2.y= rectBun2.y+topping1Speed
+        if bun2y > HEIGHT:
+            bun2x=random.randrange(0, WIDTH-50)
+            bun2y=-100 
+        rectBun2.x= bun2x
+        rectBun2.y=bun2y
+        if rect.colliderect(rectBun2):
+            gameOver()
 
         # pygame.draw.rect(screen, colors.get('white'), rect)
         # pygame.draw.rect(screen, colors.get('white'), Trect)

@@ -1,11 +1,11 @@
 This is Burger Stack!
 Move the bottom bun across the page
-with the right and left arrows 
+with the right and left arrows
 to catch the falling toppings. 
-The game ends when you catch the top bun. 
-Level 2 has a different setting and is faster
-than level 1.
-The more toppings you catch, the higher your score will be.
+Catch as many toppings as you can
+before you catch the top bun.
+Once the top bun is caught, the game is over. 
+Level 2 has a different setting and is faster than level 1.
 Enjoy! 
 
 
