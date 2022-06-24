@@ -428,10 +428,10 @@ def Game_1():
     screen.blit(topBun2, (WIDTH//2, HEIGHT//2))
 
     #rect and character tomato
-    tomato = pygame.transform.scale(tomato, (100,50)) #tomato
-    Trect= tomato.get_rect() #tomato
-    Trect.center = WIDTH//2, HEIGHT//2 #tomao
-    screen.blit(tomato, Trect) #tomato
+    tomato = pygame.transform.scale(tomato, (100,50)) 
+    Trect= tomato.get_rect()
+    Trect.center = WIDTH//2, HEIGHT//2 
+    screen.blit(tomato, Trect)
 
     #pickles rectangle
     pickles=pygame.transform.scale(pickles, (100,50))
