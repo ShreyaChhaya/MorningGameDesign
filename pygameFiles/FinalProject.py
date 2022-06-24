@@ -50,7 +50,7 @@ screen=pygame.display.set_mode((WIDTH,HEIGHT))
 pygame.display.set_caption("Burger Stack")  #change the title of my window
 
 
-#background music
+#background music - wtached video to learn how to input music (link in ppt)
 mixer.music.load('background (1).wav')
 mixer.music.play(-1)
 
@@ -63,7 +63,8 @@ Button_Game1=pygame.Rect(Bx, 250, WIDTH/4, 40)
 Button_Game2=pygame.Rect(Bx, 300, WIDTH/4, 40)
 Button_score=pygame.Rect(Bx, 350, WIDTH/4, 40)
 Button_exit=pygame.Rect(Bx, 400, WIDTH/4, 40)
-#images
+
+#images - 
 bg=pygame.image.load('PygameFiles\images\\bgSmaller.jpg')
 char = pygame.image.load('PygameFiles\images\PixelArtTutorial.png')
 char = pygame.transform.scale(char, (50, 50))
@@ -412,7 +413,7 @@ def Game_1():
 
     toppingList=[topBun, topBun2, tomato, pickles, patty, onion, mustard, lettuce, ketchup, cheese]
 
-#rectangles 
+#rectangles  - used article (link in ppt), to help with this
     #separate rectangle for top bun
     topBun=pygame.transform.scale(topBun, (100,50))
     rectBun=topBun.get_rect()
