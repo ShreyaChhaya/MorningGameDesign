@@ -277,7 +277,7 @@ def scoreboard():
     # if score>high:
     #     high=score
     # scrLine=str(high)+"\t " (':')+ "\t" +date.strftime('%m/%d/%Y')+ "\n"
-    scrLine=str(score)+(': ')+ '\t'+ userName+ "\t"+date.strftime("%m-%d-%Y")+ "\n"
+    scrLine=str(score)+(': ')+ ' '+ userName+ " "+date.strftime("%m-%d-%Y")+ "\n"
     myFile = open("PygameFiles\scoreboard.txt", "a")
     myFile.write(str(scrLine))
     myFile.close()
@@ -353,7 +353,7 @@ def Game_1():
                         mainMenu() 
 
     #define/globalize variables
-    global WIDTH, score, tomato_y, tomato_x, char, bunx, buny, pickle_x, pickle_y, patty_y, patty_x, onion_x, onion_y, mustard_x, mustard_y, lettuce_x, lettuce_y, ketchup_x, ketchup_y, cheese_x, cheese_y
+    global WIDTH, score, tomato_y, tomato_x, char, bunx, buny, pickle_x, pickle_y, patty_y, patty_x, onion_x, onion_y, mustard_x, mustard_y, lettuce_x, lettuce_y, ketchup_x, ketchup_y, cheese_x, cheese_y, rect
     global HEIGHT
     speed=5
     topping1Speed=8
@@ -400,6 +400,7 @@ def Game_1():
 
     toppingList=[topBun, topBun2, tomato, pickles, patty, onion, mustard, lettuce, ketchup, cheese]
 
+#rectangles 
     #separate rectangle for top bun
     topBun=pygame.transform.scale(topBun, (100,50))
     rectBun=topBun.get_rect()
@@ -484,8 +485,6 @@ def Game_1():
     screen.blit(char, (WIDTH/2.5,HEIGHT/1.1))
     pygame.display.update()
 
-
-
     #game loop
     game1=True
     while game1:
@@ -518,6 +517,7 @@ def Game_1():
         screen.blit(ketchup, (ketchup_x, ketchup_y))
         screen.blit(cheese, (cheese_x, cheese_y))
         
+#collisions 
 
         #if bun collides with tomato
         if not rect.colliderect(Trect):
@@ -529,7 +529,6 @@ def Game_1():
             tomato_y=-100 
         Trect.x= tomato_x
         Trect.y=tomato_y
-        rect.y=chary
         if rect.colliderect(Trect):
             tomato_x=charx
             tomato_y=chary-20
@@ -551,6 +550,8 @@ def Game_1():
             pickle_y=chary-20
             score+=1
 
+
+
         #patty
         if not rect.colliderect(rectPat):
             patty_y = patty_y+topping2Speed
@@ -565,6 +566,7 @@ def Game_1():
             patty_x=charx
             patty_y=chary-20
             score+=1
+
         #onion
         if not rect.colliderect(rectOn):
             onion_y = onion_y+topping3Speed
@@ -579,6 +581,7 @@ def Game_1():
             onion_x=charx
             onion_y=chary-20
             score+=1
+
         #mustard
         if not rect.colliderect(rectMus):
             mustard_y = mustard_y+topping3Speed
@@ -593,6 +596,7 @@ def Game_1():
             mustard_x=charx
             mustard_y=chary-20
             score+=1
+
         #lettuce
         if not rect.colliderect(rectLet):
             lettuce_y = lettuce_y+topping2Speed
@@ -607,6 +611,7 @@ def Game_1():
             lettuce_x=charx
             lettuce_y=chary-20
             score+=1
+
 
         #ketchup
         if not rect.colliderect(rectKet):
@@ -637,6 +642,7 @@ def Game_1():
             cheese_x=charx
             cheese_y=chary-20
             score+=1
+
 
         #for game over- make more random with collidepoints - so far if top collides with tomato, game over
         if not rect.colliderect(rectBun):
@@ -1159,8 +1165,6 @@ def Game_2():
         # pygame.draw.rect(screen, colors.get('white'), Trect)
         # pygame.draw.rect(screen, colors.get('white'), rectBun)
         pygame.display.update()
-
-
 
  
 run = True 
