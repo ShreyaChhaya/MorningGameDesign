@@ -33,14 +33,19 @@ WIDTH=700 #like constant
 HEIGHT=600
 clock=pygame.time.Clock()
 
+#random menu color each time game is opened, can change to new random color in settings
 menuColor = (random.randint(0,255), random.randint(0,255), random.randint(0,255))
 
+#getting fonts 
 TITLE_FONT = pygame.font.SysFont('comicsans', WIDTH//20)
 MENU_FONT = pygame.font.SysFont('comicsans', WIDTH//30)
+
+#color dictionary
 colors={"white":(255,255,255),"pink":(255,0,255),"blue":(0,0,255),"limeGreen":(153,255,51), 'red':(255, 0, 0), 'purple': (138,43,226), 'yellow':(255,215,0), 'black':(0,0,0), 'lblue':(0,206,209)}
 
+#message - each option in menu
 message=['Instructions', 'Settings', 'Level 1', 'Level 2', 'Scoreboard', 'Exit']
-#create dispay wind with any name y like
+
 screen=pygame.display.set_mode((WIDTH,HEIGHT)) 
 pygame.display.set_caption("Burger Stack")  #change the title of my window
 
@@ -49,7 +54,7 @@ pygame.display.set_caption("Burger Stack")  #change the title of my window
 mixer.music.load('background (1).wav')
 mixer.music.play(-1)
 
-#boxes for menu
+#buttons for menu
 Bx=WIDTH/2.5
 Button_menu=pygame.Rect(Bx, 125, WIDTH/4, 40)
 Button_instruct=pygame.Rect(Bx, 150, WIDTH//4, 40)
@@ -71,6 +76,7 @@ my = 0
 
 
 def mainMenu():
+    #blit title
     global menuColor
     pygame.draw.rect(screen, colors.get('limeGreen'), Button_settings)
     Title = TITLE_FONT.render("Burger Stack!", 1, colors.get("blue"))
@@ -80,6 +86,7 @@ def mainMenu():
     yMenu=150
     
     for item in message:
+        #button for each section of menu
         Button_menu=pygame.Rect(WIDTH/2.5, yMenu, WIDTH/4, 40)
         text=MENU_FONT.render(item, 1, colors.get('blue'))
         pygame.draw.rect(screen, colors.get('limeGreen'), Button_menu)
@@ -89,6 +96,7 @@ def mainMenu():
         yMenu += 50
     MENU=True
     while MENU:
+        #to quit
         for event in pygame.event.get():
             if event.type==pygame.QUIT:
                 run=False
@@ -96,6 +104,7 @@ def mainMenu():
                 pygame.display.quit()
                 MENU=False
 
+            #if certian button, go to certain place
             if event.type == pygame.MOUSEBUTTONDOWN:
                 mousePos = pygame.mouse.get_pos()
                 mx = mousePos[0]
@@ -120,7 +129,7 @@ def Instructions():
     Title = TITLE_FONT.render("Instructions", 1, colors.get("blue"))
     text = MENU_FONT.render('Return to Menu', 1, colors.get('blue'))
 
-    #fills screen with white
+    #fills screen with random menu color
     screen.fill(menuColor)
 
     #creating button options
@@ -131,7 +140,7 @@ def Instructions():
     myFile = open("PygameFiles\instructions.txt", "r")
     content = myFile.readlines()
 
-    #var to controll change of line
+    #variable to control change of line
     yinstructions = 150
     for line in content:
         Instruc = MENU_FONT.render(line[0:-1], 1, colors.get("blue"))
@@ -142,7 +151,7 @@ def Instructions():
 
     myFile.close()
 
-    #renderig fonts to the screen
+    #print text
     xd = WIDTH//2 - (Title.get_width()//2)
     screen.blit(Title, (xd, 50))
     screen.blit(text, (WIDTH//17,HEIGHT/1.1))
@@ -167,11 +176,12 @@ def settings():
     global screen 
     global WIDTH
     global HEIGHT
+    #title text
     title=TITLE_FONT.render('Settings', 1, colors.get('blue'))
     text=MENU_FONT.render('Return to Menu', 1, colors.get('blue'))
 
     screen.fill(menuColor)
-
+    #text
     color=MENU_FONT.render('Change Background Color:', 1, colors.get('blue'))
     screen.blit(color, (WIDTH/18, HEIGHT/4))
     pygame.display.update()
@@ -218,7 +228,7 @@ def settings():
     screen.blit(text11, (WIDTH/18, HEIGHT/1.5))
     pygame.display.update()
 
-    
+    #loop for each button
     while True:
         for event in pygame.event.get():
             if event.type==pygame.QUIT:
@@ -232,7 +242,7 @@ def settings():
                 #button for menu
                 if Button_3.collidepoint((mx, my)):
                     mainMenu()
-                    #button for color
+                    #button for color - changes color randomly
                 if Button_color.collidepoint((mx, my)):
                     menuColor = (random.randint(0,255), random.randint(0,255), random.randint(0,255))
                     print("change color")
@@ -260,7 +270,8 @@ def settings():
 
 
 def scoreboard():
-    high=0
+    #text for scoreboard
+
     title=TITLE_FONT.render('Scoreboard', 1, colors.get('blue'))
     text3 = MENU_FONT.render("Return to Menu", 1, colors.get("blue"))
 
@@ -272,20 +283,18 @@ def scoreboard():
     screen.blit(text3, (WIDTH//17, HEIGHT/1.1))
     pygame.display.update()
     
-    
+    #open score file and write the score line in it
     print(score)
-    # if score>high:
-    #     high=score
-    # scrLine=str(high)+"\t " (':')+ "\t" +date.strftime('%m/%d/%Y')+ "\n"
     scrLine=str(score)+(': ')+ ' '+ userName+ " "+date.strftime("%m-%d-%Y")+ "\n"
     myFile = open("PygameFiles\scoreboard.txt", "a")
     myFile.write(str(scrLine))
     myFile.close()
 
+    #read scor file
     myFile=open('pygameFiles\scoreboard.txt', 'r')
     content = myFile.readlines()
 
-    #var to controll change of line
+    #variable to control change of line
     yscore = 150
     for lines in content:
         Instruc = MENU_FONT.render(lines[0:-1], 1, colors.get("blue"))
@@ -296,6 +305,7 @@ def scoreboard():
 
     myFile.close()
 
+    #back to menu if quit
     scoreboard=True
     while scoreboard:
         for event in pygame.event.get():
@@ -311,12 +321,14 @@ def scoreboard():
                     mainMenu()
 
 def exit():
+    #text 
     title=TITLE_FONT.render('Bye-Bye!', 1, colors.get('blue'))
     screen.fill(menuColor)
 
     screen.blit(title, (WIDTH/2.5, HEIGHT/2.5))
     pygame.display.update()
 
+    #delay and then leave window
     pygame.time.delay(1000)
     pygame.display.quit()
 
@@ -771,6 +783,7 @@ def Game_2():
     pep=pygame.image.load('pygameFiles\Images\\burger toppings\peppers.png')
     mush=pygame.image.load('pygameFiles\Images\\burger toppings\mushrooms.png')
 
+#rectangles for each topping
     toppingList=[topBun, topBun2, tomato, pickles, patty, onion, mustard, lettuce, ketchup, cheese, avocado, bacon, eg, olive, pep, mush]
     #separate rectangle for top bun
     topBun=pygame.transform.scale(topBun, (100,50))
@@ -930,6 +943,7 @@ def Game_2():
         screen.blit(bacon, (bacon_x, bacon_y))
         screen.blit(avocado, (avo_x, avo_y))
 
+#collisions
         #if bun collides with tomato
         if not rect.colliderect(Trect):
             tomato_y = tomato_y+topping1Speed
@@ -1166,7 +1180,8 @@ def Game_2():
         # pygame.draw.rect(screen, colors.get('white'), rectBun)
         pygame.display.update()
 
- 
+
+#get username
 run = True 
 screen.fill(menuColor)
 userName=''
@@ -1177,7 +1192,7 @@ title=TITLE_FONT.render('Enter Name', 1, bxClr)
 screen.blit(title, (WIDTH/2.5, HEIGHT//7))
 pygame.display.update()
 
-
+#loop- have user type in name, return goes to menu, backspace deletes letter
 nameBox=pygame.Rect(WIDTH//4, HEIGHT//3, WIDTH//2, HEIGHT//10)
 pygame.draw.rect(screen, bxClr, nameBox)
 pygame.display.update()
